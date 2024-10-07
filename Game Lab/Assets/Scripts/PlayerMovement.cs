@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float dirX = Input.GetAxisRaw("Horizontal"); //dirección horizontal del jugador
-        player.velocity = new Vector2(dirX * velocidadX * Time.deltaTime, player.velocity.y);
+        player.velocity = new Vector2(dirX * velocidadX, player.velocity.y);
         if (IsGrounded() && Input.GetButtonDown("Jump")){
             player.velocity = new Vector2(player.velocity.x, velocidadY);
         }
