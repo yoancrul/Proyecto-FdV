@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
     public float velocidadY = 13f; //valor modificable para el salto del jugador
     [SerializeField] private LayerMask jumpableGround;
+    public GameObject bombPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,12 @@ public class PlayerMovement : MonoBehaviour
         player.velocity = new Vector2(dirX * velocidadX, player.velocity.y);
         if (IsGrounded() && Input.GetButtonDown("Jump")){
             player.velocity = new Vector2(player.velocity.x, velocidadY);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            GameObject bomba = Instantiate(bombPrefab, player.position, Quaternion.identity);
+            Vector2 derecha = new Vector2(1, 0);
+            bomba.GetComponent<Rigidbody2D>().velocity = derecha;
         }
     }
     private bool IsGrounded()

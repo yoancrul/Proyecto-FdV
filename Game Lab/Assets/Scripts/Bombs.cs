@@ -48,6 +48,7 @@ public class Bombs : MonoBehaviour
             Vector2 direccionImpulso = collision.gameObject.transform.position - transform.position;
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.AddForce(direccionImpulso.normalized * fuerzaExplosion);
+
         }
     }
 
