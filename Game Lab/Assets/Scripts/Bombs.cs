@@ -9,18 +9,20 @@ public class Bombs : MonoBehaviour
     public float fuerzaExplosion = 30f;
     public float radioExplosion = 3f;
     public float duracionExplosion = 0.5f;
-    public LayerMask layerJugador;
+    public GameObject player;
+    private Rigidbody2D rb;
     public float tiempoHastaExplosion = 3f;
 
-    private SphereCollider colliderBomba;
+    private CircleCollider2D colliderBomba;
     private float contador = 0f;
     private float radioInicial;
 
     // Start is called before the first frame update
     void Start()
     {
-        colliderBomba = GetComponent<SphereCollider>();
+        colliderBomba = GetComponent<CircleCollider2D>();
         radioInicial = colliderBomba.radius;
+        rb = player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -31,15 +33,8 @@ public class Bombs : MonoBehaviour
         if(contador >= tiempoHastaExplosion){
             colliderBomba.radius = radioExplosion;
 
-            Collider[] objetosImpulsados = Physics.OverlapSphere(transform.position, radioExplosion, layerJugador);
-
-            foreach (Collider objeto in objetosImpulsados){
-                Rigidbody _rigid = objeto.GetComponent<Rigidbody>();
-                if(_rigid != null){
-                    Vector3 direccionImpulso = objeto.transform.position - transform.position;
-                    _rigid.AddForce(direccionImpulso.normalized * fuerzaExplosion, ForceMode.Impulse);
-                }
-            }
+            Vector2 direccionImpulso = player.transform.position - transform.position;
+            rb.AddForce(direccionImpulso.normalized * fuerzaExplosion);
         }
 
         if(contador >= tiempoHastaExplosion + duracionExplosion){
