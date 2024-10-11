@@ -9,11 +9,10 @@ public class Bombs : MonoBehaviour
     public float fuerzaExplosion = 30f;
     public float radioExplosion = 3f;
     public float duracionExplosion = 0.5f;
-    public GameObject player;
-    private Rigidbody2D rb;
     public float tiempoHastaExplosion = 3f;
 
     private CircleCollider2D colliderBomba;
+    private Rigidbody2D rigidBomba;
     private float contador = 0f;
     private float radioInicial;
 
@@ -21,8 +20,9 @@ public class Bombs : MonoBehaviour
     void Start()
     {
         colliderBomba = GetComponent<CircleCollider2D>();
+        rigidBomba = GetComponent<Rigidbody2D>();
         radioInicial = colliderBomba.radius;
-        rb = player.GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -31,10 +31,8 @@ public class Bombs : MonoBehaviour
         contador += Time.deltaTime;
 
         if(contador >= tiempoHastaExplosion){
+            rigidBomba.constraints = RigidbodyConstraints2D.FreezePosition;
             colliderBomba.radius = radioExplosion;
-
-            Vector2 direccionImpulso = player.transform.position - transform.position;
-            rb.AddForce(direccionImpulso.normalized * fuerzaExplosion);
         }
 
         if(contador >= tiempoHastaExplosion + duracionExplosion){
@@ -43,6 +41,14 @@ public class Bombs : MonoBehaviour
         }
         
 
+    }
+
+    void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.gameObject.CompareTag("Player")) {
+            Vector2 direccionImpulso = collision.gameObject.transform.position - transform.position;
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            rb.AddForce(direccionImpulso.normalized * fuerzaExplosion);
+        }
     }
 
 }
