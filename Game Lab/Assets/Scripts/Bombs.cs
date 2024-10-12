@@ -5,25 +5,12 @@ using UnityEngine.UIElements;
 
 public class Bombs : MonoBehaviour
 {
-    public float fuerzaExplosion = 30f;
+    public float fuerzaExplosion = 5f;
     public float radioExplosion = 3f;
     public float duracionExplosion = 0.1f;
     public float tiempoHastaExplosion = 3f;
 
-    private CircleCollider2D colliderBomba;
-    private Rigidbody2D rigidBomba;
     private float contador = 0f;
-    private float radioInicial;
-
-    private Collider2D colliderJugador;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        colliderBomba = GetComponent<CircleCollider2D>();
-        rigidBomba = GetComponent<Rigidbody2D>();
-        radioInicial = colliderBomba.radius;
-    }
 
     // Update is called once per frame
     void Update()
@@ -34,19 +21,12 @@ public class Bombs : MonoBehaviour
         {
             DetonarBomba();
         }
-
-        if (contador >= tiempoHastaExplosion + duracionExplosion)
-        {
-            Destroy(gameObject);
-        }
     }
 
-    // Usamos OnCollisionEnter2D en lugar de OnTriggerEnter2D
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Aplicamos la fuerza de explosión al jugador
+            // Aplicamos la fuerza de explosiÃ³n al jugador
             Vector2 direccionImpulso = collision.gameObject.transform.position - transform.position;
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.AddForce(direccionImpulso.normalized * fuerzaExplosion, ForceMode2D.Impulse);
@@ -55,7 +35,8 @@ public class Bombs : MonoBehaviour
 
     public void DetonarBomba()
     {
-        rigidBomba.constraints = RigidbodyConstraints2D.FreezePosition;
+        CircleCollider2D colliderBomba = gameObject.AddComponent<CircleCollider2D>();
+        colliderBomba.isTrigger = true;
         colliderBomba.radius = radioExplosion;
 
         StartCoroutine(DestruirDespuesDeExplosion());
@@ -64,6 +45,13 @@ public class Bombs : MonoBehaviour
     private IEnumerator DestruirDespuesDeExplosion()
     {
         yield return new WaitForSeconds(duracionExplosion);
+        // Destruir el objeto padre
+        if (transform.parent != null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+
+        // Destruir el objeto actual
         Destroy(gameObject);
     }
 }
