@@ -45,13 +45,6 @@ public class Bombs : MonoBehaviour
     private IEnumerator DestruirDespuesDeExplosion()
     {
         yield return new WaitForSeconds(duracionExplosion);
-        // Destruir el objeto padre
-        if (transform.parent != null)
-        {
-            Destroy(transform.parent.gameObject);
-        }
-
-        // Destruir el objeto actual
         Destroy(gameObject);
     }
 }
