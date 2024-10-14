@@ -34,6 +34,18 @@ public class PlayerMovement : MonoBehaviour
     private GameObject bombaArriba = null;
     private GameObject bombaAbajo = null;
 
+
+    // Variables utilizadas para el lanzamiento que manipula el jugador
+    private bool q = false;
+    public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
+    private GameObject bombaMano = null;
+    private GameObject circle = null; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
+    private Bombs scriptBombs; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
+    public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzará la bomba
+    public Camera mainCamera;  // Camara principal para obtener la posición del cursor
+    private Rigidbody2D rigidforce; // Lanzamiento
+    private Rigidbody2D rigidbomb; // Servira para desactivar la gravedad de la bomba mientras la mantenga el jugador
+
     // Start is called before the first frame update
     void Start()
     {
@@ -154,6 +166,62 @@ public class PlayerMovement : MonoBehaviour
                 bombaArriba = null;
             }
         }
+
+        
+        // Manejo de la bomba en modo de lanzamiento
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            
+            if(bombaMano == null)
+            {
+                q = true;
+                bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
+                rigidbomb = bombaMano.GetComponent<Rigidbody2D>();
+                if(rigidbomb!=null){
+                    rigidbomb.gravityScale=0;
+                }
+                circle = bombaMano.transform.Find("Circle").gameObject;
+                if (circle!=null){
+                    scriptBombs = circle.GetComponent<Bombs>();
+                    if (scriptBombs != null)
+                    {
+                        scriptBombs.enabled = false;
+                    }
+                }
+            }
+            else{
+                q = false;
+                rigidbomb.gravityScale=1;
+                scriptBombs.enabled = true;
+                Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                posCursor.z = 0;
+                if(posCursor.x < hand.transform.position.x){
+                    posCursor.x = hand.transform.position.x;
+                }
+                Vector3 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
+                rigidforce = bombaMano.GetComponent<Rigidbody2D>();
+                if (rigidforce != null)
+                {
+                    rigidforce.AddForce(direccionLanzamiento * fuerzaDeLanzamiento, ForceMode2D.Impulse);
+                }
+                bombaMano = null;
+
+            }
+            
+        }
+
+        if (q==true)
+        {
+            // Actualizar la posición de la bomba para que siga el bombHolder
+            bombaMano.transform.SetPositionAndRotation(hand.transform.position, hand.transform.rotation);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && q == false)
+        {
+            bombaMano.GetComponent<Bombs>().DetonarBomba();
+            bombaMano = null;
+        }
+
     }
 
     private bool IsGrounded()
