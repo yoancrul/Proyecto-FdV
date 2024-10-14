@@ -40,8 +40,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bombaMano = null;
     private Bombs scriptBombs; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
-    public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzará la bomba
-    public Camera mainCamera;  // Camara principal para obtener la posición del cursor
+    public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzara la bomba
+    public Camera mainCamera;  // Camara principal para obtener la posicion del cursor
     private Rigidbody2D rigidforce; // Lanzamiento
     private Rigidbody2D rigidbomb; // Servira para desactivar la gravedad de la bomba mientras la mantenga el jugador
 
@@ -207,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (soltado==false)
         {
-            // Actualizar la posición de la bomba para que siga a Hand
+            // Actualizar la posicion de la bomba para que siga a Hand
             bombaMano.transform.SetPositionAndRotation(hand.transform.position, hand.transform.rotation);
         }
 
