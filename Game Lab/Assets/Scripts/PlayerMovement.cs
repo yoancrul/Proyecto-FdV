@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
         float dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador
 
         // Velocidad deseada en ambos ejes
@@ -205,7 +206,8 @@ public class PlayerMovement : MonoBehaviour
             
         }
 
-        if (soltado==false)
+        
+        if (bombaMano!=null && soltado==false)
         {
             // Actualizar la posicion de la bomba para que siga a Hand
             bombaMano.transform.SetPositionAndRotation(hand.transform.position, hand.transform.rotation);
