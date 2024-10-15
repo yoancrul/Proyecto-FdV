@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
     private bool soltado = false;
+    private bool right = true;
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bombaMano = null;
     private Bombs scriptBombs; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
         float dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador
 
         // Velocidad deseada en ambos ejes
