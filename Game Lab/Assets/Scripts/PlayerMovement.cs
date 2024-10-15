@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private float deceleracion;
     private float velocidadGiro;
     private float maxSpeedChange;
-
-    private bool girando = false;
     public GameObject bombPrefab;
     public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
     public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
@@ -36,14 +34,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
-    private bool q = false;
+    private bool soltado = false;
     private bool derecha = true;
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bombaMano = null;
-    private GameObject circle = null; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
     private Bombs scriptBombs; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
-    public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzará la bomba
-    public Camera mainCamera;  // Camara principal para obtener la posición del cursor
+    public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzara la bomba
+    public Camera mainCamera;  // Camara principal para obtener la posicion del cursor
     private Rigidbody2D rigidforce; // Lanzamiento
     private Rigidbody2D rigidbomb; // Servira para desactivar la gravedad de la bomba mientras la mantenga el jugador
 
@@ -59,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
         float dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador
 
         // Velocidad deseada en ambos ejes
@@ -139,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (bombaAbajo == null)
             {
-                Vector3 posicionBomba = new Vector3(player.position.x, player.position.y - 1, 0);
+                Vector3 posicionBomba = new Vector3(player.position.x, player.position.y, 0);
                 bombaAbajo = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                 Vector2 direccion = new Vector2(player.velocity.x, -velocidadLanzamiento + player.velocity.y);
                 bombaAbajo.GetComponent<Rigidbody2D>().velocity = direccion;
@@ -175,28 +173,25 @@ public class PlayerMovement : MonoBehaviour
             
             if(bombaMano == null)
             {
-                q = true;
+                soltado=false;
                 bombaMano = Instantiate(bombPrefab, hand.transform.localPosition, Quaternion.identity);
                 rigidbomb = bombaMano.GetComponent<Rigidbody2D>();
                 if(rigidbomb!=null){
                     rigidbomb.gravityScale=0;
                 }
-                circle = bombaMano.transform.Find("Circle").gameObject;
-                if (circle!=null){
-                    scriptBombs = circle.GetComponent<Bombs>();
-                    if (scriptBombs != null)
-                    {
-                        scriptBombs.enabled = false;
-                    }
+                scriptBombs = bombaMano.GetComponent<Bombs>();
+                if (scriptBombs != null)
+                {
+                    scriptBombs.enabled = false;
                 }
             }
-            else{
-                q = false;
+            else if(bombaMano!=null && soltado==false){
+                soltado=true;
                 rigidbomb.gravityScale=1;
                 scriptBombs.enabled = true;
                 Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 posCursor.z = 0;
-                if(derecha==true){
+                if(derecha){
                     if(posCursor.x < hand.transform.position.x){
                         posCursor.x = hand.transform.position.x;
                     }
@@ -206,30 +201,32 @@ public class PlayerMovement : MonoBehaviour
                         posCursor.x = hand.transform.position.x;
                     }
                 }
+                
                 Vector3 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
                 rigidforce = bombaMano.GetComponent<Rigidbody2D>();
                 if (rigidforce != null)
                 {
                     rigidforce.AddForce(direccionLanzamiento * fuerzaDeLanzamiento, ForceMode2D.Impulse);
                 }
-                bombaMano = null;
 
             }
             
         }
 
-        if (q==true)
+        // Actualizar la posicion de la bomba para que siga a Hand
+        if (bombaMano!=null && soltado==false)
         {
-            // Actualizar la posición de la bomba para que siga el bombHolder
             bombaMano.transform.SetPositionAndRotation(hand.transform.position, hand.transform.rotation);
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && q == false)
+        //Explotar la bomba controlada por el jugador con E
+        if (bombaMano!=null && Input.GetKeyDown(KeyCode.E) && soltado == true)
         {
             bombaMano.GetComponent<Bombs>().DetonarBomba();
             bombaMano = null;
         }
 
+        //Si el jugador se mueve a la izquierda, la bomba se queda a la izquierda del jugador
         if(Input.GetKeyDown(KeyCode.A) && derecha == true){
             derecha = false;
             Vector3 newPos = hand.transform.localPosition;
@@ -237,6 +234,7 @@ public class PlayerMovement : MonoBehaviour
             hand.transform.localPosition = newPos;
         }
 
+        //Si el jugador se mueve a la derecha, la bomba se queda a la derecha del jugador
         if(Input.GetKeyDown(KeyCode.D) && derecha == false){
             derecha = true;
             Vector3 newPos = hand.transform.localPosition;

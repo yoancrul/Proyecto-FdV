@@ -1,53 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2448018491810542259
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2800505115490867017}
-  - component: {fileID: 60853548581125047}
-  m_Layer: 0
-  m_Name: Circle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2800505115490867017
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448018491810542259}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1905968824333373241}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &60853548581125047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448018491810542259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48a338f50479724ba75105ec89ce672, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuerzaExplosion: 5
-  radioExplosion: 3
-  duracionExplosion: 0.1
-  tiempoHastaExplosion: 3
 --- !u!1 &3253940916985967612
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,6 +12,7 @@ GameObject:
   - component: {fileID: 5227502372652194312}
   - component: {fileID: 2370500576045126484}
   - component: {fileID: 8149026457507974675}
+  - component: {fileID: 4763932785671268542}
   m_Layer: 0
   m_Name: Bomba
   m_TagString: Untagged
@@ -79,8 +32,7 @@ Transform:
   m_LocalPosition: {x: -0.79, y: -0.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2800505115490867017}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5227502372652194312
@@ -197,3 +149,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &4763932785671268542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253940916985967612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48a338f50479724ba75105ec89ce672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuerzaExplosion: 15
+  radioExplosion: 3
+  duracionExplosion: 0.1
+  tiempoHastaExplosion: 3

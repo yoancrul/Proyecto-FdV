@@ -12,6 +12,17 @@ public class Bombs : MonoBehaviour
 
     private float contador = 0f;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        /* Con este codigo, las bombas no colisionan con el jugador. Quitar este codigo si se busca otro comportamiento. */
+        Collider2D colliderPlayer, colliderBomb;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        colliderPlayer = player.GetComponent<Collider2D>();
+        colliderBomb = gameObject.GetComponent<Collider2D>();
+        Physics2D.IgnoreCollision(colliderPlayer, colliderBomb);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -45,13 +56,6 @@ public class Bombs : MonoBehaviour
     private IEnumerator DestruirDespuesDeExplosion()
     {
         yield return new WaitForSeconds(duracionExplosion);
-        // Destruir el objeto padre
-        if (transform.parent != null)
-        {
-            Destroy(transform.parent.gameObject);
-        }
-
-        // Destruir el objeto actual
         Destroy(gameObject);
     }
 }
