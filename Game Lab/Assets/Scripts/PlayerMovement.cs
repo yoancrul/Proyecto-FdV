@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
     private bool q = false;
+    private bool derecha = true;
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bombaMano = null;
     private GameObject circle = null; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
@@ -175,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
             if(bombaMano == null)
             {
                 q = true;
-                bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
+                bombaMano = Instantiate(bombPrefab, hand.transform.localPosition, Quaternion.identity);
                 rigidbomb = bombaMano.GetComponent<Rigidbody2D>();
                 if(rigidbomb!=null){
                     rigidbomb.gravityScale=0;
@@ -195,8 +196,15 @@ public class PlayerMovement : MonoBehaviour
                 scriptBombs.enabled = true;
                 Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 posCursor.z = 0;
-                if(posCursor.x < hand.transform.position.x){
-                    posCursor.x = hand.transform.position.x;
+                if(derecha==true){
+                    if(posCursor.x < hand.transform.position.x){
+                        posCursor.x = hand.transform.position.x;
+                    }
+                }
+                else{
+                    if(posCursor.x > hand.transform.position.x){
+                        posCursor.x = hand.transform.position.x;
+                    }
                 }
                 Vector3 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
                 rigidforce = bombaMano.GetComponent<Rigidbody2D>();
@@ -220,6 +228,20 @@ public class PlayerMovement : MonoBehaviour
         {
             bombaMano.GetComponent<Bombs>().DetonarBomba();
             bombaMano = null;
+        }
+
+        if(Input.GetKeyDown(KeyCode.A) && derecha == true){
+            derecha = false;
+            Vector3 newPos = hand.transform.localPosition;
+            newPos.x = -newPos.x;
+            hand.transform.localPosition = newPos;
+        }
+
+        if(Input.GetKeyDown(KeyCode.D) && derecha == false){
+            derecha = true;
+            Vector3 newPos = hand.transform.localPosition;
+            newPos.x = -newPos.x;
+            hand.transform.localPosition = newPos;
         }
 
     }
