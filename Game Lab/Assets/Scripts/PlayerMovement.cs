@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour
     private float deceleracion;
     private float velocidadGiro;
     private float maxSpeedChange;
-
-    private bool girando = false;
     public GameObject bombPrefab;
     public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
     public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
@@ -139,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (bombaAbajo == null)
             {
-                Vector3 posicionBomba = new Vector3(player.position.x, player.position.y - 1, 0);
+                Vector3 posicionBomba = new Vector3(player.position.x, player.position.y, 0);
                 bombaAbajo = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                 Vector2 direccion = new Vector2(player.velocity.x, -velocidadLanzamiento + player.velocity.y);
                 bombaAbajo.GetComponent<Rigidbody2D>().velocity = direccion;
