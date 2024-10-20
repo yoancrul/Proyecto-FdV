@@ -9,6 +9,7 @@ public class Bombs : MonoBehaviour
     public float radioExplosion = 3f;
     public float duracionExplosion = 0.1f;
     public float tiempoHastaExplosion = 3f;
+    public bool detonado = false;
 
     private float contador = 0f;
 
@@ -28,9 +29,10 @@ public class Bombs : MonoBehaviour
     {
         contador += Time.deltaTime;
 
-        if (contador >= tiempoHastaExplosion)
+        if (contador >= tiempoHastaExplosion && !detonado)
         {
             DetonarBomba();
+            detonado = true;
         }
     }
 

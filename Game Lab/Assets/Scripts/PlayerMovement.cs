@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float deceleracionMaxAire = 3f;
     public float velocidadMaxGiro = 7f;
     public float velocidadMaxGiroAire = 4f;
+
     public float friccion = 3f;
 
     private float aceleracion;
@@ -51,7 +52,10 @@ public class PlayerMovement : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
     }
-
+    private void FixedUpdate()
+    {
+        
+    }
     // Update is called once per frame
 
     void Update()
