@@ -222,7 +222,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   hand: {fileID: 1660181908}
-  fuerzaDeLanzamiento: 15
+  fuerzaDeLanzamiento: 17
   mainCamera: {fileID: 1904209632}
 --- !u!61 &109200669
 BoxCollider2D:

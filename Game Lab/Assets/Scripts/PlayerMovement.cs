@@ -35,15 +35,12 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
-    private bool soltado = false;
     private bool derecha = true;
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bombaMano = null;
-    private Bombs scriptBombs; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
     public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzara la bomba
     public Camera mainCamera;  // Camara principal para obtener la posicion del cursor
     private Rigidbody2D rigidforce; // Lanzamiento
-    private Rigidbody2D rigidbomb; // Servira para desactivar la gravedad de la bomba mientras la mantenga el jugador
 
     // Start is called before the first frame update
     void Start()
@@ -177,22 +174,7 @@ public class PlayerMovement : MonoBehaviour
             
             if(bombaMano == null)
             {
-                soltado=false;
-                bombaMano = Instantiate(bombPrefab, hand.transform.localPosition, Quaternion.identity);
-                rigidbomb = bombaMano.GetComponent<Rigidbody2D>();
-                if(rigidbomb!=null){
-                    rigidbomb.gravityScale=0;
-                }
-                scriptBombs = bombaMano.GetComponent<Bombs>();
-                if (scriptBombs != null)
-                {
-                    scriptBombs.enabled = false;
-                }
-            }
-            else if(bombaMano!=null && soltado==false){
-                soltado=true;
-                rigidbomb.gravityScale=1;
-                scriptBombs.enabled = true;
+                bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
                 Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 posCursor.z = 0;
                 if(derecha){
@@ -211,23 +193,13 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rigidforce.AddForce(direccionLanzamiento * fuerzaDeLanzamiento, ForceMode2D.Impulse);
                 }
-
+                
+            }
+            else
+            {
+                bombaMano.GetComponent<Bombs>().DetonarBomba();
             }
             
-        }
-
-        
-        // Actualizar la posicion de la bomba para que siga a Hand
-        if (bombaMano!=null && soltado==false)
-        {
-            bombaMano.transform.SetPositionAndRotation(hand.transform.position, hand.transform.rotation);
-        }
-
-        //Explotar la bomba controlada por el jugador con E
-        if (bombaMano!=null && Input.GetKeyDown(KeyCode.E) && soltado == true)
-        {
-            bombaMano.GetComponent<Bombs>().DetonarBomba();
-            bombaMano = null;
         }
 
         //Si el jugador se mueve a la izquierda, la bomba se queda a la izquierda del jugador
