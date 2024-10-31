@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
                 bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
                 Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 posCursor.z = 0;
-                if(derecha){
+                /*if(derecha){
                     if(posCursor.x < hand.transform.position.x){
                         posCursor.x = hand.transform.position.x;
                     }
@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
                     if(posCursor.x > hand.transform.position.x){
                         posCursor.x = hand.transform.position.x;
                     }
-                }
+                }*/
                 Vector3 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
                 rigidforce = bombaMano.GetComponent<Rigidbody2D>();
                 if (rigidforce != null)
@@ -203,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Si el jugador se mueve a la izquierda, la bomba se queda a la izquierda del jugador
-        if(Input.GetKeyDown(KeyCode.A) && derecha == true){
+        /*if(Input.GetKeyDown(KeyCode.A) && derecha == true){
             derecha = false;
             Vector3 newPos = hand.transform.localPosition;
             newPos.x = -newPos.x;
@@ -216,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 newPos = hand.transform.localPosition;
             newPos.x = -newPos.x;
             hand.transform.localPosition = newPos;
-        }
+        }*/
 
 
     }
