@@ -52,9 +52,20 @@ public class Bombs : MonoBehaviour
         colliderBomba.isTrigger = true;
         colliderBomba.radius = radioExplosion;
 
+        DestruirMuros();
+
         StartCoroutine(DestruirDespuesDeExplosion());
     }
 
+    private void DestruirMuros()
+{
+    Collider2D[] objetosAfectados = Physics2D.OverlapCircleAll(transform.position, radioExplosion);
+    for (int i = 0; i < objetosAfectados.Length; i++){
+        if (objetosAfectados[i].CompareTag("muro")) {
+            Destroy(objetosAfectados[i].gameObject);
+        }
+    }
+}
     private IEnumerator DestruirDespuesDeExplosion()
     {
         yield return new WaitForSeconds(duracionExplosion);
