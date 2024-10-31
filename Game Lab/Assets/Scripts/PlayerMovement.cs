@@ -15,32 +15,13 @@ public class PlayerMovement : MonoBehaviour
     public float velocidadMaxGiro = 7f;
     public float velocidadMaxGiroAire = 4f;
 
-    public float friccion = 3f;
-
+    public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
+    public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
     private float aceleracion;
     private float deceleracion;
     private float velocidadGiro;
     private float maxSpeedChange;
-    public GameObject bombPrefab;
-    public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
-    public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
-    public float velocidadLanzamiento = 3f;
     [SerializeField] private LayerMask jumpableGround;
-
-    // Referencias a las bombas lanzadas
-    private GameObject bombaDerecha = null;
-    private GameObject bombaIzquierda = null;
-    private GameObject bombaArriba = null;
-    private GameObject bombaAbajo = null;
-
-
-    // Variables utilizadas para el lanzamiento que manipula el jugador
-    private bool derecha = true;
-    public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
-    private GameObject bombaMano = null;
-    public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzara la bomba
-    public Camera mainCamera;  // Camara principal para obtener la posicion del cursor
-    private Rigidbody2D rigidforce; // Lanzamiento
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
         float dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador
 
         // Velocidad deseada en ambos ejes
@@ -89,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         // Suavizamos la transición de la velocidad actual a la velocidad deseada en X
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
 
-
         // Actualizamos la velocidad del jugador
         player.velocity = velocity;
 
@@ -98,127 +77,6 @@ public class PlayerMovement : MonoBehaviour
         {
             player.velocity = new Vector2(player.velocity.x, fuerzaSalto);
         }
-
-        // Manejo de la bomba hacia la derecha
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            if (bombaDerecha == null) // Si no hay bomba lanzada en esa dirección, lanzamos una
-            {
-                Vector3 posicionBomba = new Vector3(player.position.x + 1, player.position.y, 0);
-                bombaDerecha = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
-                Vector2 direccion = new Vector2(velocidadLanzamiento + player.velocity.x, player.velocity.y);
-                bombaDerecha.GetComponent<Rigidbody2D>().velocity = direccion;
-            }
-            else // Si ya hay bomba lanzada, detonamos
-            {
-                bombaDerecha.GetComponent<Bombs>().DetonarBomba();
-                bombaDerecha = null; // Después de detonar, la referencia se elimina
-            }
-        }
-
-        // Manejo de la bomba hacia la izquierda
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            if (bombaIzquierda == null)
-            {
-                Vector3 posicionBomba = new Vector3(player.position.x - 1, player.position.y, 0);
-                bombaIzquierda = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
-                Vector2 direccion = new Vector2(-velocidadLanzamiento + player.velocity.x, player.velocity.y);
-                bombaIzquierda.GetComponent<Rigidbody2D>().velocity = direccion;
-            }
-            else
-            {
-                bombaIzquierda.GetComponent<Bombs>().DetonarBomba();
-                bombaIzquierda = null;
-            }
-        }
-
-        // Manejo de la bomba hacia abajo
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (bombaAbajo == null)
-            {
-                Vector3 posicionBomba = new Vector3(player.position.x, player.position.y, 0);
-                bombaAbajo = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
-                Vector2 direccion = new Vector2(player.velocity.x, -velocidadLanzamiento + player.velocity.y);
-                bombaAbajo.GetComponent<Rigidbody2D>().velocity = direccion;
-            }
-            else
-            {
-                bombaAbajo.GetComponent<Bombs>().DetonarBomba();
-                bombaAbajo = null;
-            }
-        }
-
-        // Manejo de la bomba hacia arriba
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (bombaArriba == null)
-            {
-                Vector3 posicionBomba = new Vector3(player.position.x, player.position.y + 1, 0);
-                bombaArriba = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
-                Vector2 direccion = new Vector2(player.velocity.x, +velocidadLanzamiento + player.velocity.y);
-                bombaArriba.GetComponent<Rigidbody2D>().velocity = direccion;
-            }
-            else
-            {
-                bombaArriba.GetComponent<Bombs>().DetonarBomba();
-                bombaArriba = null;
-            }
-        }
-
-        
-        // Manejo de la bomba en modo de lanzamiento
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            
-            if(bombaMano == null)
-            {
-                bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
-                Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                posCursor.z = 0;
-                /*if(derecha){
-                    if(posCursor.x < hand.transform.position.x){
-                        posCursor.x = hand.transform.position.x;
-                    }
-                }
-                else{
-                    if(posCursor.x > hand.transform.position.x){
-                        posCursor.x = hand.transform.position.x;
-                    }
-                }*/
-                Vector3 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
-                rigidforce = bombaMano.GetComponent<Rigidbody2D>();
-                if (rigidforce != null)
-                {
-                    rigidforce.AddForce(direccionLanzamiento * fuerzaDeLanzamiento, ForceMode2D.Impulse);
-                }
-                
-            }
-            else
-            {
-                bombaMano.GetComponent<Bombs>().DetonarBomba();
-            }
-            
-        }
-
-        //Si el jugador se mueve a la izquierda, la bomba se queda a la izquierda del jugador
-        /*if(Input.GetKeyDown(KeyCode.A) && derecha == true){
-            derecha = false;
-            Vector3 newPos = hand.transform.localPosition;
-            newPos.x = -newPos.x;
-            hand.transform.localPosition = newPos;
-        }
-
-        //Si el jugador se mueve a la derecha, la bomba se queda a la derecha del jugador
-        if(Input.GetKeyDown(KeyCode.D) && derecha == false){
-            derecha = true;
-            Vector3 newPos = hand.transform.localPosition;
-            newPos.x = -newPos.x;
-            hand.transform.localPosition = newPos;
-        }*/
-
-
     }
 
     private bool IsGrounded()
