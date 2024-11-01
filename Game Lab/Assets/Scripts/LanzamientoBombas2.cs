@@ -24,11 +24,12 @@ public class LanzamientoBombas2 : MonoBehaviour {
                 bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
                 Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 posCursor.z = 0;
-                Vector3 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
+                Vector2 direccionLanzamiento = (posCursor - hand.transform.position).normalized;
+                Vector2 lanzamiento = direccionLanzamiento * fuerzaDeLanzamiento + player.velocity;
                 rigidforce = bombaMano.GetComponent<Rigidbody2D>();
                 if (rigidforce != null)
                 {
-                    rigidforce.AddForce(direccionLanzamiento * fuerzaDeLanzamiento, ForceMode2D.Impulse);
+                    rigidforce.AddForce(lanzamiento, ForceMode2D.Impulse);
                 }
             }
             else
