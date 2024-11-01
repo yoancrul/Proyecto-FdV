@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 109200672}
   - component: {fileID: 109200674}
   - component: {fileID: 109200673}
-  - component: {fileID: 109200675}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -328,13 +327,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109200666}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b14b2b95dd03ce4cb16e0aca07b23c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6843d9a9475f67c4bb750d3551ce94f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 3253940916985967612, guid: cb77de299fd24864e80425638c492b7c, type: 3}
-  velocidadLanzamiento: 3
+  fuerzaDeLanzamiento: 18
+  hand: {fileID: 109200666}
+  mainCamera: {fileID: 1904209632}
 --- !u!114 &109200674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,36 +345,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 109200666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5c3107867af6e419fbb5e224449dce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aceleracionMax: 5
-  aceleracionMaxAire: 2
-  deceleracionMax: 6
-  deceleracionMaxAire: 3
-  velocidadMaxGiro: 7
-  velocidadMaxGiroAire: 4
-  velocidadX: 7
-  fuerzaSalto: 13
-  jumpableGround:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &109200675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109200666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6843d9a9475f67c4bb750d3551ce94f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b14b2b95dd03ce4cb16e0aca07b23c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 3253940916985967612, guid: cb77de299fd24864e80425638c492b7c, type: 3}
-  fuerzaDeLanzamiento: 10
-  hand: {fileID: 1660181908}
-  mainCamera: {fileID: 1904209632}
+  velocidadLanzamiento: 3
 --- !u!1 &160677857
 GameObject:
   m_ObjectHideFlags: 0
