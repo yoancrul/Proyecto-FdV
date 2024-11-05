@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -35,15 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
-    private bool soltado = false;
-    private bool derecha = true;
+    /*private bool soltado = false;
+    private bool derecha = true;*/
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bombaMano = null;
-    private Bombs scriptBombs; // Lo utilizaremos para desactivar el script Bombs mientras el jugador sostenga la bomba
     public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzara la bomba
     public Camera mainCamera;  // Camara principal para obtener la posicion del cursor
     private Rigidbody2D rigidforce; // Lanzamiento
-    private Rigidbody2D rigidbomb; // Servira para desactivar la gravedad de la bomba mientras la mantenga el jugador
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
         float dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador
 
         // Velocidad deseada en ambos ejes
@@ -169,8 +167,31 @@ public class PlayerMovement : MonoBehaviour
                 bombaArriba = null;
             }
         }
+        // Manejo de la bomba con mando
+        if (Input.GetButtonDown("Fire1")){
+            if(bombaMano == null){
+                float dirBombX = Input.GetAxisRaw("Mouse X");
+                float dirBombY = Input.GetAxisRaw("Mouse Y");
+                Vector3 posicionBomba;
+                if(IsGrounded() && dirBombY < 0){
+                    posicionBomba = new Vector3(player.position.x+dirBombX, player.position.y, 0);
+                } else {
+                    posicionBomba = new Vector3(player.position.x+dirBombX, player.position.y+dirBombY, 0);
+                }
 
-        
+                bombaMano = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
+                Vector3 posCursor = new Vector3(dirBombX,dirBombY,0);
+
+                rigidforce = bombaMano.GetComponent<Rigidbody2D>();
+                if (rigidforce != null) {
+                    rigidforce.AddForce(posCursor * fuerzaDeLanzamiento, ForceMode2D.Impulse);
+                }
+                } else {
+                    bombaMano.GetComponent<Bombs>().DetonarBomba();
+                }
+        }
+
+        /*
         // Manejo de la bomba en modo de lanzamiento
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -244,7 +265,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 newPos = hand.transform.localPosition;
             newPos.x = -newPos.x;
             hand.transform.localPosition = newPos;
-        }
+        }*/
 
 
     }
