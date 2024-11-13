@@ -16,6 +16,31 @@ public class LanzamientoBombas2 : MonoBehaviour {
         player = GetComponent<Rigidbody2D>();
     }
     void Update() {
+
+        // Manejo de la bomba con mando
+        if (Input.GetButtonDown("Fire1")){
+            if(bombaMano == null){
+                float dirBombX = Input.GetAxisRaw("Mouse X");
+                float dirBombY = Input.GetAxisRaw("Mouse Y");
+                /*Vector3 posicionBomba;
+                if(IsGrounded() && dirBombY < 0){
+                    posicionBomba = new Vector3(player.position.x+dirBombX, player.position.y, 0);
+                } else {
+                    posicionBomba = new Vector3(player.position.x+dirBombX, player.position.y+dirBombY, 0);
+                }*/
+
+                bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
+                Vector3 posCursor = new Vector3(dirBombX,dirBombY,0);
+
+                rigidforce = bombaMano.GetComponent<Rigidbody2D>();
+                if (rigidforce != null) {
+                    rigidforce.AddForce(posCursor * fuerzaDeLanzamiento, ForceMode2D.Impulse);
+                }
+            } else {
+                bombaMano.GetComponent<Bombs>().DetonarBomba();
+            }
+        }
+
         // Manejo de la bomba en modo de lanzamiento
         if (Input.GetKeyDown(KeyCode.Q))
         {
