@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D player;
     private BoxCollider2D coll;
     private SpriteRenderer sp;
+
+    public TMP_Text bombasUI;
 
     public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
     public int bombasDisponibles = 0;
@@ -95,20 +98,24 @@ public class PlayerMovement : MonoBehaviour
     public void AumentarBombasMaximas()
     {
         bombasMaximas++;
+        bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas maximas: " + bombasMaximas);
     }
     public void AumentarBombaDisponible()
     {
         bombasDisponibles++;
+        bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas disponibles: " + bombasDisponibles);
     }
     public void QuitarBombaDisponible()
     {
         bombasDisponibles--;
+        bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas disponibles: " + bombasDisponibles);
     }
     public void IgualarBombas()
     {
         bombasDisponibles = bombasMaximas;
+        bombasUI.text = "Bombas: " + bombasDisponibles;
     }
 }
