@@ -284,7 +284,7 @@ MonoBehaviour:
   fuerzaSalto: 10
   jumpableGround:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 264
 --- !u!61 &109200669
 BoxCollider2D:
   m_ObjectHideFlags: 0
