@@ -4,6 +4,7 @@ public class LanzamientoBombas1 : MonoBehaviour {
     private Rigidbody2D player;
     public GameObject bombPrefab;
     public float velocidadLanzamiento = 3f;
+    public PlayerMovement playerMovement;
 
     // Referencias a las bombas lanzadas
     private GameObject bombaDerecha = null;
@@ -88,11 +89,14 @@ public class LanzamientoBombas1 : MonoBehaviour {
                 }
             }
         } else {*/
-            // Manejo de la bomba hacia la derecha
-            if (Input.GetButtonDown("Derecha"))
+
+
+        // Manejo de la bomba hacia la derecha
+        if (Input.GetButtonDown("Derecha"))
             {
-                if (bombaDerecha == null) // Si no hay bomba lanzada en esa dirección, lanzamos una
+                if (bombaDerecha == null && playerMovement.bombasDisponibles>0) // Si no hay bomba lanzada en esa dirección, lanzamos una
                 {
+                    playerMovement.QuitarBombaDisponible();
                     Vector3 posicionBomba = new Vector3(player.position.x + 1, player.position.y, 0);
                     bombaDerecha = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                     Vector2 direccion = new Vector2(velocidadLanzamiento + player.velocity.x, player.velocity.y);
@@ -108,8 +112,9 @@ public class LanzamientoBombas1 : MonoBehaviour {
             // Manejo de la bomba hacia la izquierda
             if (Input.GetButtonDown("Izquierda"))
             {
-                if (bombaIzquierda == null)
+                if (bombaIzquierda == null && playerMovement.bombasDisponibles > 0)
                 {
+                    playerMovement.QuitarBombaDisponible();
                     Vector3 posicionBomba = new Vector3(player.position.x - 1, player.position.y, 0);
                     bombaIzquierda = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                     Vector2 direccion = new Vector2(-velocidadLanzamiento + player.velocity.x, player.velocity.y);
@@ -125,8 +130,9 @@ public class LanzamientoBombas1 : MonoBehaviour {
             // Manejo de la bomba hacia abajo
             if (Input.GetButtonDown("Abajo"))
             {
-                if (bombaAbajo == null)
+                if (bombaAbajo == null && playerMovement.bombasDisponibles > 0)
                 {
+                    playerMovement.QuitarBombaDisponible();
                     Vector3 posicionBomba = new Vector3(player.position.x, player.position.y, 0);
                     bombaAbajo = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                     Vector2 direccion = new Vector2(player.velocity.x, -velocidadLanzamiento + player.velocity.y);
@@ -142,8 +148,9 @@ public class LanzamientoBombas1 : MonoBehaviour {
             // Manejo de la bomba hacia arriba
             if (Input.GetButtonDown("Arriba"))
             {
-                if (bombaArriba == null)
+                if (bombaArriba == null && playerMovement.bombasDisponibles > 0)
                 {
+                playerMovement.QuitarBombaDisponible();
                     Vector3 posicionBomba = new Vector3(player.position.x, player.position.y + 1, 0);
                     bombaArriba = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                     Vector2 direccion = new Vector2(player.velocity.x, +velocidadLanzamiento + player.velocity.y);

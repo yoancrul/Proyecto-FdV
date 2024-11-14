@@ -10,6 +10,7 @@ public class Bombs : MonoBehaviour
     public float duracionExplosion = 0.1f;
     public float tiempoHastaExplosion = 3f;
     public bool detonado = false;
+    private PlayerMovement playerMovement; //usado para encontrar bombasDisponibles en el script del jugador
 
     private float contador = 0f;
 
@@ -19,6 +20,7 @@ public class Bombs : MonoBehaviour
         /* Con este codigo, las bombas no colisionan con el jugador. Quitar este codigo si se busca otro comportamiento. */
         Collider2D colliderPlayer, colliderBomb;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
         colliderPlayer = player.GetComponent<Collider2D>();
         colliderBomb = gameObject.GetComponent<Collider2D>();
         Physics2D.IgnoreCollision(colliderPlayer, colliderBomb);
@@ -51,6 +53,7 @@ public class Bombs : MonoBehaviour
         CircleCollider2D colliderBomba = gameObject.AddComponent<CircleCollider2D>();
         colliderBomba.isTrigger = true;
         colliderBomba.radius = radioExplosion;
+        playerMovement.AumentarBombaDisponible();
 
         DestruirMuros();
 

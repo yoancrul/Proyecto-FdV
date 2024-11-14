@@ -6,6 +6,7 @@ TagManager:
   tags:
   - muro
   - suelo
+  - Bomba Recogible
   layers:
   - Default
   - TransparentFX
