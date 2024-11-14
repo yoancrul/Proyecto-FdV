@@ -37,10 +37,7 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         bombasDisponibles = bombasMaximas;
     }
-    private void FixedUpdate()
-    {
-        
-    }
+
     // Update is called once per frame
 
     void Update()

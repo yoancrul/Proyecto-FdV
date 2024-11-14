@@ -33,8 +33,8 @@ public class Bombs : MonoBehaviour
 
         if (contador >= tiempoHastaExplosion && !detonado)
         {
-            DetonarBomba();
             detonado = true;
+            DetonarBomba();
         }
     }
 
@@ -50,10 +50,11 @@ public class Bombs : MonoBehaviour
 
     public void DetonarBomba()
     {
+        if (detonado) return; // Evita que se detone dos veces
+        detonado = true;
         CircleCollider2D colliderBomba = gameObject.AddComponent<CircleCollider2D>();
         colliderBomba.isTrigger = true;
         colliderBomba.radius = radioExplosion;
-        playerMovement.AumentarBombaDisponible();
 
         DestruirMuros();
 
@@ -73,6 +74,10 @@ public class Bombs : MonoBehaviour
     {
         yield return new WaitForSeconds(duracionExplosion);
         Destroy(gameObject);
+    }
+    private void FixedUpdate()
+    {
+        
     }
 }
 

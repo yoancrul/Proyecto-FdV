@@ -4,7 +4,7 @@ public class LanzamientoBombas1 : MonoBehaviour {
     private Rigidbody2D player;
     public GameObject bombPrefab;
     public float velocidadLanzamiento = 3f;
-    public PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;   //DISCLAIMER: No tiene sentido q esto se llame playerMovement pero estoy muy cansao
 
     // Referencias a las bombas lanzadas
     private GameObject bombaDerecha = null;
