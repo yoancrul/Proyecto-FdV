@@ -98,18 +98,22 @@ public class PlayerMovement : MonoBehaviour
         bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas maximas: " + bombasMaximas);
     }
+
+    /* Podra ser util para proximas actualizaciones de codigo*/
     public void AumentarBombaDisponible()
     {
         bombasDisponibles++;
         bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas disponibles: " + bombasDisponibles);
     }
+
     public void QuitarBombaDisponible()
     {
         bombasDisponibles--;
         bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas disponibles: " + bombasDisponibles);
     }
+    
     public void IgualarBombas()
     {
         bombasDisponibles = bombasMaximas;
