@@ -104,8 +104,10 @@ public class LanzamientoBombas1 : MonoBehaviour {
                 }
                 else // Si ya hay bomba lanzada, detonamos
                 {
-                    bombaDerecha.GetComponent<Bombs>().DetonarBomba();
-                    bombaDerecha = null; // Después de detonar, la referencia se elimina
+                    if(bombaDerecha!=null){
+                        bombaDerecha.GetComponent<Bombs>().DetonarBomba();
+                        bombaDerecha = null; // Después de detonar, la referencia se elimina
+                    }
                 }
             }
 
@@ -122,8 +124,10 @@ public class LanzamientoBombas1 : MonoBehaviour {
                 }
                 else
                 {
-                    bombaIzquierda.GetComponent<Bombs>().DetonarBomba();
-                    bombaIzquierda = null;
+                    if(bombaIzquierda!=null){
+                        bombaIzquierda.GetComponent<Bombs>().DetonarBomba();
+                        bombaIzquierda = null;
+                    }
                 }
             }
 
@@ -140,8 +144,10 @@ public class LanzamientoBombas1 : MonoBehaviour {
                 }
                 else
                 {
-                    bombaAbajo.GetComponent<Bombs>().DetonarBomba();
-                    bombaAbajo = null;
+                    if(bombaAbajo!=null){
+                        bombaAbajo.GetComponent<Bombs>().DetonarBomba();
+                        bombaAbajo = null;
+                    }
                 }
             }
 
@@ -158,8 +164,10 @@ public class LanzamientoBombas1 : MonoBehaviour {
                 }
                 else
                 {
-                    bombaArriba.GetComponent<Bombs>().DetonarBomba();
-                    bombaArriba = null;
+                    if(bombaArriba!=null){
+                        bombaArriba.GetComponent<Bombs>().DetonarBomba();
+                        bombaArriba = null;
+                    }
                 }
             }
         //}

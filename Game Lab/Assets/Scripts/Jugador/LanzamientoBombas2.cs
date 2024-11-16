@@ -5,7 +5,7 @@ public class LanzamientoBombas2 : MonoBehaviour {
     private Rigidbody2D player;
     public GameObject bombPrefab;
     public float fuerzaDeLanzamiento = 10f;  // Fuerza con la que se lanzara la bomba
-    public PlayerMovement playerMovement;   //DISCLAIMER: No tiene sentido q esto se llame playerMovement pero estoy muy cansao
+    public PlayerMovement playerMovement;   //DISCLAIMER: se debe cambiar el nombre de esto
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
     public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
@@ -42,7 +42,8 @@ public class LanzamientoBombas2 : MonoBehaviour {
                 }
                 else
                 {
-                    bombaMano.GetComponent<Bombs>().DetonarBomba();
+                    if(bombaMano!=null)
+                        bombaMano.GetComponent<Bombs>().DetonarBomba();
                 }
             }
         //} else {
@@ -61,7 +62,8 @@ public class LanzamientoBombas2 : MonoBehaviour {
                         rigidforce.AddForce(posCursor * fuerzaDeLanzamiento, ForceMode2D.Impulse);
                     }
                 } else {
-                    bombaMano.GetComponent<Bombs>().DetonarBomba();
+                    if(bombaMano!=null)
+                        bombaMano.GetComponent<Bombs>().DetonarBomba();
                 }
             }
         //}

@@ -33,7 +33,7 @@ public class Bombs : MonoBehaviour
 
         if (contador >= tiempoHastaExplosion && !detonado)
         {
-            detonado = true;
+            //detonado = true; /*** * no permite que la bomba explote con tiempo */
             DetonarBomba();
         }
     }
