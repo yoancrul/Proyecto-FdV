@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool pausado = false;
+    public static bool pausado = false;
+    public GameObject pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
+        pauseMenu.SetActive(false);
         if (Time.timeScale == 0)
             pausado = true;
     }
@@ -18,27 +20,47 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown("r"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            RestartLevel();
         }
         if (Input.GetKeyDown("escape")){
             if (!pausado)
             {
                 PauseGame();
-                pausado = true;
             }
             else{
                 ResumeGame();
-                pausado = false;
             }
         }
     }
-    void PauseGame()
+    public void PauseGame()
     {
+        pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        pausado = true;
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
+        pauseMenu.SetActive(false);
         Time.timeScale = 1;
+        pausado = false;
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    public void GoToMainMenu()
+    {
+        if (pausado)
+            ResumeGame();
+        SceneManager.LoadScene("Menu Principal");
+    }
+    public void RestartLevel()
+    {
+        if (pausado)
+        {
+            ResumeGame();
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -6,13 +6,15 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D player;
-    private BoxCollider2D coll;
+    public BoxCollider2D coll;
     private SpriteRenderer sp;
 
     public TMP_Text bombasUI;
 
     public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
     public int bombasDisponibles = 0;
+    public float groundCooldown = 1.0f;
+    private float siguienteLanzamiento = 0f;
 
     public float aceleracionMax = 5f;
     public float aceleracionMaxAire = 2f;
@@ -81,13 +83,13 @@ public class PlayerMovement : MonoBehaviour
         {
             player.velocity = new Vector2(player.velocity.x, fuerzaSalto);
         }
-        if (IsGrounded() && bombasDisponibles != bombasMaximas)
+        if (IsGrounded() && bombasDisponibles != bombasMaximas && CheckCooldown())
         {
             IgualarBombas();
         }
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
@@ -118,5 +120,15 @@ public class PlayerMovement : MonoBehaviour
     {
         bombasDisponibles = bombasMaximas;
         bombasUI.text = "Bombas: " + bombasDisponibles;
+    }
+    public bool CheckCooldown()
+    {
+        if (Time.time > siguienteLanzamiento)
+        {
+            siguienteLanzamiento = Time.time + groundCooldown;
+            return true;
+        }
+        else
+            return false;
     }
 }

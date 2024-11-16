@@ -19,12 +19,13 @@ public class LanzamientoBombas2 : MonoBehaviour {
         player = GetComponent<Rigidbody2D>();
     }
     void Update() {
-
-        /*mandos = Input.GetJoystickNames();
-        if(mandos[0].Equals("")){
-            Manejo de la bomba en modo de lanzamiento*/
+        if (!GameManager.pausado)
+        {
+            /*mandos = Input.GetJoystickNames();
+            if(mandos[0].Equals("")){
+                Manejo de la bomba en modo de lanzamiento*/
             //if (Input.GetButtonDown("Fire1"))
-            if(Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (bombaMano == null && playerMovement.bombasDisponibles > 0)
                 {
@@ -42,31 +43,35 @@ public class LanzamientoBombas2 : MonoBehaviour {
                 }
                 else
                 {
-                    if(bombaMano!=null)
+                    if (bombaMano != null)
                         bombaMano.GetComponent<Bombs>().DetonarBomba();
                 }
             }
-        //} else {
+            //} else {
             // Manejo de la bomba con mando
-            if (Input.GetButtonDown("Fire1")){
-                if(bombaMano == null && playerMovement.bombasDisponibles > 0)
+            if (Input.GetButtonDown("Fire1"))
             {
-                    playerMovement.QuitarBombaDisponible(); 
+                if (bombaMano == null && playerMovement.bombasDisponibles > 0)
+                {
+                    playerMovement.QuitarBombaDisponible();
                     float dirBombX = Input.GetAxisRaw("Mouse X");
                     float dirBombY = Input.GetAxisRaw("Mouse Y");
                     bombaMano = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
-                    Vector3 posCursor = new Vector3(dirBombX,dirBombY,0);
+                    Vector3 posCursor = new Vector3(dirBombX, dirBombY, 0);
 
                     rigidforce = bombaMano.GetComponent<Rigidbody2D>();
-                    if (rigidforce != null) {
+                    if (rigidforce != null)
+                    {
                         rigidforce.AddForce(posCursor * fuerzaDeLanzamiento, ForceMode2D.Impulse);
                     }
-                } else {
-                    if(bombaMano!=null)
+                }
+                else
+                {
+                    if (bombaMano != null)
                         bombaMano.GetComponent<Bombs>().DetonarBomba();
                 }
             }
-        //}
-        
+            //}
+        }
     }
 }
