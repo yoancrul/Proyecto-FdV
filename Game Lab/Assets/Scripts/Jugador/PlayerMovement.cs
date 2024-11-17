@@ -11,10 +11,11 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sp;
 
     public TMP_Text bombasUI;
+    public TMP_Text velocidadUI;
 
     public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
     public int bombasDisponibles = 0;
-    public float groundCooldown = 1.0f;
+    private float groundCooldown = 0.7f;
     private float siguienteLanzamiento = 0f;
 
     public float aceleracionMax = 5f;
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         // Velocidad deseada en ambos ejes
         Vector2 desiredVelocity = new Vector2(dirX * velocidadX, player.velocity.y);
         Vector2 velocity = player.velocity; // Velocidad actual del jugador
+        velocidadUI.text = "Velocidad: " + (int)velocity.x;
 
         // Establecemos valores de aceleración, desaceleración y velocidad de giro según si está en el suelo o en el aire
         aceleracion = IsGrounded() ? aceleracionMax : aceleracionMaxAire;
