@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -121,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
         bombasDisponibles = bombasMaximas;
         bombasUI.text = "Bombas: " + bombasDisponibles;
     }
+    //Cooldown para el lanzamiento de bombas cuando el jugador no está en el aire
     public bool CheckCooldown()
     {
         if (Time.time > siguienteLanzamiento)
@@ -130,5 +132,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             return false;
+    }
+    //Matar al jugador
+    public void Muere()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

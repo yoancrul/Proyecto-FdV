@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4763932785671268542}
   m_Layer: 7
   m_Name: Bomba
-  m_TagString: Untagged
+  m_TagString: bomba
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

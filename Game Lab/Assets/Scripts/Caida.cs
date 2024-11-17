@@ -18,9 +18,13 @@ public class Caida : MonoBehaviour
     }
    void OnCollisionEnter2D(Collision2D collision){
     if (collision.gameObject.CompareTag("Player")){
-                Debug.Log("Colisión con suelo detectada");
+            Debug.Log("Colisión con suelo detectada");
+            PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+            if (playerMovement != null)
+            {
+                playerMovement.Muere(); // Llama al método Muere()
+            }
+        }
 }
 }

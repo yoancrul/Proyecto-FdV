@@ -7,6 +7,8 @@ TagManager:
   - muro
   - suelo
   - Bomba Recogible
+  - Enemigo
+  - bomba
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Player
   - Bomba
   - Plataforma
-  - 
+  - Enemigo
   - 
   - 
   - 

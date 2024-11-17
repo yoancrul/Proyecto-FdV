@@ -75,10 +75,6 @@ public class Bombs : MonoBehaviour
         yield return new WaitForSeconds(duracionExplosion);
         Destroy(gameObject);
     }
-    private void FixedUpdate()
-    {
-        
-    }
 }
 
 
