@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public float velocidadMaxGiroAire = 4f;
 
     public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
+    public float velocidadMax = 20f;
     public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
     private float aceleracion;
     private float deceleracion;
@@ -65,7 +66,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 maxSpeedChange = velocidadGiro * Time.deltaTime;
             }
-            else if (IsGrounded()) // Aceleración en el suelo
+            else if (IsGrounded() && Mathf.Abs(velocity.x) > velocidadX && Mathf.Sign(velocity.x) == Mathf.Sign(dirX))
+            {
+                maxSpeedChange = 0;
+            }
+            else if (IsGrounded() ) // Aceleración en el suelo
             {
                 maxSpeedChange = aceleracion * Time.deltaTime;
             }
@@ -90,6 +95,11 @@ public class PlayerMovement : MonoBehaviour
 
         // Suavizamos la transición de la velocidad actual a la velocidad deseada en X
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
+        // Limitar la velocidad máxima a velocidadMax cuando no hay input
+        if (Mathf.Abs(velocity.x) > velocidadMax)
+        {
+            velocity.x = Mathf.Sign(velocity.x) * velocidadMax;
+        }
 
         // Actualizamos la velocidad del jugador
         player.velocity = velocity;

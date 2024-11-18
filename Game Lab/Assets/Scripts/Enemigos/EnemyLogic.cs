@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyLogic : MonoBehaviour
 {
     public float velocidad = 1f;
-    //public GameObject enemigo;
 
     public Transform sightStart;
     public Transform sightEnd;
@@ -22,107 +21,117 @@ public class EnemyLogic : MonoBehaviour
 
     public bool colliding;
 
-
     void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Mover el enemigo
-        if(!siendoEmpujado && !cayendo)
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidad + GetComponent<Rigidbody2D>().velocity.y, GetComponent<Rigidbody2D>().velocity.y);
+        // Verificar si el enemigo está en el suelo
+        bool estaEnElSuelo = Physics2D.Linecast(sightGround1.position, sightGround2.position).collider != null;
 
-        // Realizar el Linecast
+        // Mover el enemigo solo si no está siendo empujado y no está cayendo
+        if (!siendoEmpujado && !cayendo && estaEnElSuelo)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-velocidad, GetComponent<Rigidbody2D>().velocity.y);
+        }
+
+        // Realizar los Linecast para colisiones
         RaycastHit2D hit = Physics2D.Linecast(sightStart.position, sightEnd.position);
         RaycastHit2D noGround = Physics2D.Linecast(sightGround1.position, sightGround2.position);
         RaycastHit2D caer = Physics2D.Linecast(sightGround3.position, sightGround4.position);
-        if (caer.collider == null) {
-            Debug.Log("Cayendo");
+
+        if (caer.collider == null)
+        {
             if (!cayendo)
             {
-                Invoke("DestruirEnemigo", 3);
+                //Invoke("DestruirEnemigo", 3);
+                cayendo = true;
             }
-            cayendo = true;
-            return; }
-        else if (hit.collider != null && !cayendo) // Si el Linecast detecta algo
+            return;
+        }
+        else if (hit.collider != null && !cayendo)
         {
             if (hit.collider.CompareTag("bomba"))
             {
                 return;
             }
-            if (hit.collider.CompareTag("Player")) // Verifica si lo que detecta es el jugador
+            if (hit.collider.CompareTag("Player"))
             {
-                playerMovement.Muere(); // Llama al método Muere() del jugador
+                playerMovement.Muere();
             }
 
-            // Cambiar de dirección si colisiona con 
             Gira();
-        }   else if(noGround.collider == null && !cayendo)
+        }
+        else if (noGround.collider == null && !cayendo)
         {
             Gira();
         }
+
         cayendo = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) { 
+        if (collision.gameObject.CompareTag("Player"))
+        {
             playerMovement.Muere();
         }
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("bomba"))
         {
-            Debug.Log("El enemigo entró en contacto con la bomba");
             DetenerMovimiento();
             Invoke("RestablecerMovimiento", 1);
 
-            // Obtén el Rigidbody del enemigo
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                // Calcula la dirección correcta (desde la bomba hacia el enemigo)
                 Vector2 direccionImpulso = transform.position - collision.transform.position;
-
-                // Obtén la fuerza de la bomba
                 float fuerzaExplosion = collision.GetComponent<Bombs>().fuerzaExplosion;
-
-                // Aplica la fuerza al enemigo
                 rb.AddForce(direccionImpulso.normalized * fuerzaExplosion, ForceMode2D.Impulse);
             }
         }
     }
+
     void DestruirEnemigo()
     {
-        if(cayendo)
-        Destroy(gameObject);
+        if (cayendo)
+            Destroy(gameObject);
     }
+
     void DetenerMovimiento()
     {
         siendoEmpujado = true;
-
     }
+
     void RestablecerMovimiento()
     {
         siendoEmpujado = false;
+
+        // Si no está en el suelo, no retomar movimiento horizontal
+        bool estaEnElSuelo = Physics2D.Linecast(sightGround1.position, sightGround2.position).collider != null;
+        if (!estaEnElSuelo)
+        {
+            cayendo = true;
+        }
     }
+
     private void Gira()
     {
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
         velocidad *= -1;
-        Debug.Log("Girando");
     }
-    //Esto solo es para ver los raycasts
+
     void OnDrawGizmos()
     {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(sightStart.position, sightEnd.position);
-            Gizmos.DrawLine(sightGround1.position, sightGround2.position);
-            Gizmos.DrawLine(sightGround3.position, sightGround4.position);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(sightStart.position, sightEnd.position);
+        Gizmos.DrawLine(sightGround1.position, sightGround2.position);
+        Gizmos.DrawLine(sightGround3.position, sightGround4.position);
     }
 }

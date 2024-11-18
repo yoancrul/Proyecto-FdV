@@ -8,7 +8,19 @@ public class FlyingEnemy : MonoBehaviour
     public Transform limiteSuperior; // Límite superior
     public Transform limiteInferior; // Límite inferior
 
+    private float limiteSuperiorY; // Posición fija en Y del límite superior
+    private float limiteInferiorY; // Posición fija en Y del límite inferior
+
     private bool moviendoHaciaArriba = true; // Dirección inicial
+
+    void Start()
+    {
+        // Guardar las posiciones iniciales de los límites
+        if (limiteSuperior != null)
+            limiteSuperiorY = limiteSuperior.position.y;
+        if (limiteInferior != null)
+            limiteInferiorY = limiteInferior.position.y;
+    }
 
     void Update()
     {
@@ -18,7 +30,7 @@ public class FlyingEnemy : MonoBehaviour
             transform.position += Vector3.up * velocidad * Time.deltaTime;
 
             // Si llega al límite superior, cambiar dirección
-            if (transform.position.y >= limiteSuperior.position.y)
+            if (transform.position.y >= limiteSuperiorY)
             {
                 moviendoHaciaArriba = false;
             }
@@ -28,7 +40,7 @@ public class FlyingEnemy : MonoBehaviour
             transform.position += Vector3.down * velocidad * Time.deltaTime;
 
             // Si llega al límite inferior, cambiar dirección
-            if (transform.position.y <= limiteInferior.position.y)
+            if (transform.position.y <= limiteInferiorY)
             {
                 moviendoHaciaArriba = true;
             }
@@ -54,6 +66,9 @@ public class FlyingEnemy : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawLine(limiteSuperior.position, limiteInferior.position);
+            Gizmos.DrawSphere(limiteSuperior.position, 0.1f);
+            Gizmos.DrawSphere(limiteInferior.position, 0.1f);
         }
     }
 }
+
