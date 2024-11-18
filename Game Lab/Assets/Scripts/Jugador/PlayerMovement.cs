@@ -61,18 +61,31 @@ public class PlayerMovement : MonoBehaviour
         // Movimiento en el eje X
         if (dirX != 0)
         {
-            if (Mathf.Sign(dirX) != Mathf.Sign(velocity.x)) // Si está girando
+            if (Mathf.Sign(dirX) != Mathf.Sign(velocity.x)) // Si está girando (cambiando de dirección)
             {
                 maxSpeedChange = velocidadGiro * Time.deltaTime;
             }
-            else
+            else if (IsGrounded()) // Aceleración en el suelo
             {
                 maxSpeedChange = aceleracion * Time.deltaTime;
+            }
+            else // Aceleración en el aire
+            {
+                // Si el jugador está en el aire y su velocidad supera la máxima en la dirección del input, no desacelera
+                if (Mathf.Abs(velocity.x) > velocidadX && Mathf.Sign(velocity.x) == Mathf.Sign(dirX))
+                {
+                    maxSpeedChange = 0; // No desacelerar si sigue la dirección del movimiento actual
+                }
+                else
+                {
+                    maxSpeedChange = aceleracion * Time.deltaTime; // Aceleración normal si está por debajo de la velocidad máxima
+                }
             }
         }
         else
         {
-            maxSpeedChange = deceleracion * Time.deltaTime;
+            // Deceleración solo si no hay input horizontal
+            maxSpeedChange = IsGrounded() ? deceleracion * Time.deltaTime : 0;
         }
 
         // Suavizamos la transición de la velocidad actual a la velocidad deseada en X

@@ -9,6 +9,7 @@ TagManager:
   - Bomba Recogible
   - Enemigo
   - bomba
+  - Bloque Activado
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Trap
+  - name: Bloques
     uniqueID: 245037859
     locked: 0

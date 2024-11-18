@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Tilemaps;
 
 public class Bombs : MonoBehaviour
 {
@@ -13,7 +14,6 @@ public class Bombs : MonoBehaviour
     private PlayerMovement playerMovement; //usado para encontrar bombasDisponibles en el script del jugador
 
     private float contador = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -62,14 +62,59 @@ public class Bombs : MonoBehaviour
     }
 
     private void DestruirMuros()
-{
-    Collider2D[] objetosAfectados = Physics2D.OverlapCircleAll(transform.position, radioExplosion);
-    for (int i = 0; i < objetosAfectados.Length; i++){
-        if (objetosAfectados[i].CompareTag("muro")) {
-            Destroy(objetosAfectados[i].gameObject);
+    {
+        // Obtener todas las celdas afectadas por la explosión
+        Collider2D[] objetosAfectados = Physics2D.OverlapCircleAll(transform.position, radioExplosion);
+
+        foreach (var col in objetosAfectados)
+        {
+            // Verificar si la colisión es con un tile del Tilemap
+            if (col.CompareTag("muro"))
+            {
+                Tilemap tilemap = col.GetComponent<Tilemap>();
+                Vector3 hitPosition = col.transform.position;
+                Vector3Int tilePos = tilemap.WorldToCell(hitPosition);
+
+                // Verificar si hay un tile en esa posición y eliminar el muro
+                if (tilemap.HasTile(tilePos))
+                {
+                    QuitarMuro(tilemap, tilePos);
+                }
+            }
         }
     }
-}
+
+    private void QuitarMuro(Tilemap tilemap, Vector3Int posicionInicial)
+    {
+        // Usar un conjunto de tiles ya destruidos para evitar repetir la destrucción de celdas
+        HashSet<Vector3Int> tilesDestruidos = new HashSet<Vector3Int>();
+        Queue<Vector3Int> tilesPorRevisar = new Queue<Vector3Int>();
+        tilesPorRevisar.Enqueue(posicionInicial);
+
+        while (tilesPorRevisar.Count > 0)
+        {
+            Vector3Int tileActual = tilesPorRevisar.Dequeue();
+
+            // Si ya hemos destruido este tile, lo ignoramos
+            if (tilesDestruidos.Contains(tileActual))
+                continue;
+
+            // Si no hay un tile en esta posición, continuamos
+            if (!tilemap.HasTile(tileActual))
+                continue;
+
+            // Eliminar el tile actual
+            tilemap.SetTile(tileActual, null);
+            tilesDestruidos.Add(tileActual);  // Marcar el tile como destruido
+
+            // Agregar las posiciones adyacentes (arriba, abajo, izquierda, derecha) para revisar
+            tilesPorRevisar.Enqueue(tileActual + Vector3Int.up);
+            tilesPorRevisar.Enqueue(tileActual + Vector3Int.down);
+            tilesPorRevisar.Enqueue(tileActual + Vector3Int.left);
+            tilesPorRevisar.Enqueue(tileActual + Vector3Int.right);
+        }
+    }
+
     private IEnumerator DestruirDespuesDeExplosion()
     {
         yield return new WaitForSeconds(duracionExplosion);
