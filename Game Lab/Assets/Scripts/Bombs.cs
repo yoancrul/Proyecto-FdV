@@ -72,13 +72,29 @@ public class Bombs : MonoBehaviour
             if (col.CompareTag("muro"))
             {
                 Tilemap tilemap = col.GetComponent<Tilemap>();
-                Vector3 hitPosition = col.transform.position;
-                Vector3Int tilePos = tilemap.WorldToCell(hitPosition);
-
-                // Verificar si hay un tile en esa posición y eliminar el muro
-                if (tilemap.HasTile(tilePos))
+                if (tilemap == null)
                 {
-                    QuitarMuro(tilemap, tilePos);
+                    Debug.LogWarning("No se encontró un Tilemap en el colisionador del muro.");
+                    continue;
+                }
+
+                // Obtener todas las posiciones de tiles dentro del radio de la explosión
+                Vector3 explosionCenter = transform.position;
+                BoundsInt bounds = tilemap.cellBounds;
+
+                // Iterar sobre cada celda dentro de los límites del Tilemap
+                foreach (var pos in bounds.allPositionsWithin)
+                {
+                    // Convertir la posición del tile al mundo para calcular la distancia
+                    Vector3 worldPosition = tilemap.CellToWorld(pos) + tilemap.cellSize / 2; // Centro del tile
+                    float distancia = Vector3.Distance(explosionCenter, worldPosition);
+
+                    // Si está dentro del radio de la explosión y hay un tile en esa posición, destrúyelo
+                    if (distancia <= radioExplosion && tilemap.HasTile(pos))
+                    {
+                        Debug.Log($"Tile destruido en posición: {pos}");
+                        QuitarMuro(tilemap, pos);
+                    }
                 }
             }
         }
@@ -105,15 +121,31 @@ public class Bombs : MonoBehaviour
 
             // Eliminar el tile actual
             tilemap.SetTile(tileActual, null);
+            Debug.Log($"Tile eliminado en posición: {tileActual}");
             tilesDestruidos.Add(tileActual);  // Marcar el tile como destruido
 
             // Agregar las posiciones adyacentes (arriba, abajo, izquierda, derecha) para revisar
-            tilesPorRevisar.Enqueue(tileActual + Vector3Int.up);
-            tilesPorRevisar.Enqueue(tileActual + Vector3Int.down);
-            tilesPorRevisar.Enqueue(tileActual + Vector3Int.left);
-            tilesPorRevisar.Enqueue(tileActual + Vector3Int.right);
+            Vector3Int[] direcciones = new Vector3Int[]
+            {
+            Vector3Int.up,
+            Vector3Int.down,
+            Vector3Int.left,
+            Vector3Int.right
+            };
+
+            foreach (Vector3Int direccion in direcciones)
+            {
+                Vector3Int adyacente = tileActual + direccion;
+                if (!tilesDestruidos.Contains(adyacente) && tilemap.HasTile(adyacente))
+                {
+                    tilesPorRevisar.Enqueue(adyacente);
+                }
+            }
         }
     }
+
+
+
 
     private IEnumerator DestruirDespuesDeExplosion()
     {
