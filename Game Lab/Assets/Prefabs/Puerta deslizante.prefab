@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadApertura: 2
-  alturaApertura: 6
+  distanciaApertura: 6
+  direccionApertura: 0
 --- !u!50 &2821490048363465112
 Rigidbody2D:
   serializedVersion: 4
