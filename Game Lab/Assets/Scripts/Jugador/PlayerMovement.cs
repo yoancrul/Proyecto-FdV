@@ -13,27 +13,29 @@ public class PlayerMovement : MonoBehaviour
     public TMP_Text bombasUI;
     public TMP_Text velocidadUI;
 
-
+    /*Variables de gestion de la cantidad de bombas maximas, disponibles 
+     y el cooldown del lanzamiento de bombas para evitar que el jugador lanze demasiadas */
     public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
     public int bombasDisponibles = 0;
-    private float groundCooldown = 0.7f;
+    private float groundCooldown = 0.4f;
     private float siguienteLanzamiento = 0f;
 
+    /*Todo variables de movimiento horizontal menos fuerzaSalto obviamente*/
     public float aceleracionMax = 5f;
     public float aceleracionMaxAire = 2f;
     public float deceleracionMax = 6f;
     public float deceleracionMaxAire = 3f;
     public float velocidadMaxGiro = 7f;
     public float velocidadMaxGiroAire = 4f;
-
     public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
     public float velocidadMax = 20f; //la velocidad(horizontal) del jugador nunca puede superior a velocidadMax
     public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
+
     private float aceleracion;
     private float deceleracion;
     private float velocidadGiro;
     private float maxSpeedChange;
-    [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private LayerMask jumpableGround; //esto solo es para definir sobre que layers puede saltar el jugador
 
     // Start is called before the first frame update
     void Start()
@@ -67,11 +69,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 maxSpeedChange = velocidadGiro * Time.deltaTime;
             }
-            else if (IsGrounded() && Mathf.Abs(velocity.x) > velocidadX && Mathf.Sign(velocity.x) == Mathf.Sign(dirX))
+            else if (IsGrounded() && Mathf.Abs(velocity.x) > velocidadX) // Si está en el suelo y esta siendo impulsado por una bomba, decelera
             {
-                maxSpeedChange = 0;
-            }
-            else if (IsGrounded() ) // Aceleración en el suelo
+                maxSpeedChange = deceleracion * Time.deltaTime;
+            }else if (IsGrounded()) //Si está moviendose normal en el suelo, acelera
             {
                 maxSpeedChange = aceleracion * Time.deltaTime;
             }

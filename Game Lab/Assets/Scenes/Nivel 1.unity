@@ -2651,7 +2651,7 @@ MonoBehaviour:
   velocidadMaxGiro: 60
   velocidadMaxGiroAire: 60
   velocidadX: 10
-  velocidadMax: 20
+  velocidadMax: 30
   fuerzaSalto: 15
   jumpableGround:
     serializedVersion: 2
