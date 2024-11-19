@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public TMP_Text bombasUI;
     public TMP_Text velocidadUI;
 
+
     public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
     public int bombasDisponibles = 0;
     private float groundCooldown = 0.7f;
@@ -26,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public float velocidadMaxGiroAire = 4f;
 
     public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
-    public float velocidadMax = 20f;
+    public float velocidadMax = 20f; //la velocidad(horizontal) del jugador nunca puede superior a velocidadMax
     public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
     private float aceleracion;
     private float deceleracion;

@@ -26,5 +26,10 @@ public class Caida : MonoBehaviour
                 playerMovement.Muere(); // Llama al método Muere()
             }
         }
+    if (collision.gameObject.CompareTag("Enemigo"))
+        {
+            GameObject enemigo = collision.gameObject;
+            Destroy(enemigo);
+        }
 }
 }

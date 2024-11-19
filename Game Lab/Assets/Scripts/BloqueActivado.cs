@@ -5,7 +5,7 @@ using UnityEngine;
 public class BloqueActivado : MonoBehaviour
 {
     public Puerta puertaAsociada;
-    private bool activo = false;
+    private bool activo;
     // Start is called before the first frame update
     void Start()
     {

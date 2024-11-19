@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muro atravesable por bomba Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1635697456350339115, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2497896613360704552, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7094
