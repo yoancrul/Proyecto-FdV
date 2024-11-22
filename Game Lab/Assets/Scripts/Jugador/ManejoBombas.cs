@@ -14,7 +14,6 @@ public class ManejoBombas : MonoBehaviour
     public PlayerMovement playerMovement;   //DISCLAIMER: se debe cambiar el nombre de esto
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
-    public GameObject hand; // Posicion en la que el jugador sostrendra la bomba
     private GameObject bomba = null;
     public Camera mainCamera;  // Camara principal para obtener la posicion del cursor
     private Rigidbody2D rigidforce; // Lanzamiento
@@ -44,7 +43,7 @@ public class ManejoBombas : MonoBehaviour
                 if (bomba == null && playerMovement.bombasDisponibles > 0)
                 {
                     playerMovement.QuitarBombaDisponible();
-                    bomba = Instantiate(bombPrefab, hand.transform.position, Quaternion.identity);
+                    bomba = Instantiate(bombPrefab, player.transform.position, Quaternion.identity);
                     Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                     posCursor.z = 0;
                     Vector2 direccionLanzamiento = (posCursor - player.transform.position).normalized;
