@@ -216,12 +216,12 @@ MonoBehaviour:
   bombasDisponibles: 0
   aceleracionMax: 60
   aceleracionMaxAire: 60
-  deceleracionMax: 10
+  deceleracionMax: 30
   deceleracionMaxAire: 0
   velocidadMaxGiro: 60
   velocidadMaxGiroAire: 60
   velocidadX: 10
-  velocidadMax: 20
+  velocidadMax: 35
   fuerzaSalto: 15
   jumpableGround:
     serializedVersion: 2

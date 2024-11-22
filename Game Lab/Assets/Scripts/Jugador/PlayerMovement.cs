@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
      y el cooldown del lanzamiento de bombas para evitar que el jugador lanze demasiadas */
     public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
     public int bombasDisponibles = 0;
-    private float groundCooldown = 0.4f;
+    private float groundCooldown = 0.7f;
     private float siguienteLanzamiento = 0f;
 
     /*Todo variables de movimiento horizontal menos fuerzaSalto obviamente*/
