@@ -2543,10 +2543,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 3253940916985967612, guid: cb77de299fd24864e80425638c492b7c, type: 3}
-  fuerzaDeLanzamiento: 18
+  fuerzaDeLanzamiento: 13
   playerMovement: {fileID: 1057932449}
   hand: {fileID: 1057932444}
-  mainCamera: {fileID: 0}
+  mainCamera: {fileID: 1904209632}
 --- !u!114 &1057932446
 MonoBehaviour:
   m_ObjectHideFlags: 0
