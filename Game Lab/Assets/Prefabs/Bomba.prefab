@@ -166,3 +166,4 @@ MonoBehaviour:
   duracionExplosion: 0.1
   tiempoHastaExplosion: 3
   detonado: 0
+  tilemap: {fileID: 0}

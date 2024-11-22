@@ -25,6 +25,7 @@ public class ManejoBombas : MonoBehaviour
             if (playerController != null)
             {
                 playerController.AumentarBombasMaximas(); // Aumenta en 1 la cantidad maxima de bombas
+                playerController.IgualarBombas();
             }
             Destroy(gameObject);
         }

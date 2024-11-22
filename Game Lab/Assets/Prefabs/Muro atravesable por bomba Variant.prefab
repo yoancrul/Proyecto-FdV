@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muro atravesable por bomba Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1635697456350339115, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2497896613360704552, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7094
@@ -55,6 +59,18 @@ PrefabInstance:
     - target: {fileID: 2497896613360704552, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361962866458337615, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
+      propertyPath: m_Color.b
+      value: 0.4666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361962866458337615, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.37254903
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361962866458337615, guid: dcc8c79daacf03b4b96c33a6a379c61b, type: 3}
+      propertyPath: m_Color.r
+      value: 0.86274517
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
