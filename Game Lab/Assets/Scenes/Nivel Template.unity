@@ -174,6 +174,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1904209632}
+    - target: {fileID: 2865761921549627348, guid: f21580fe7d60e5048a1e3c7b142cd9dc, type: 3}
+      propertyPath: cursorPrefab
+      value: 
+      objectReference: {fileID: 3938640701874743654, guid: b5cda713dc59f464b88280f2e0787d7e, type: 3}
     - target: {fileID: 6566848079499059054, guid: f21580fe7d60e5048a1e3c7b142cd9dc, type: 3}
       propertyPath: m_Name
       value: Player
@@ -191,6 +195,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f21580fe7d60e5048a1e3c7b142cd9dc, type: 3}
+--- !u!4 &74252597 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1989528546049276037, guid: f21580fe7d60e5048a1e3c7b142cd9dc, type: 3}
+  m_PrefabInstance: {fileID: 74252596}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &160677857
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,7 +1972,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 74252597}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 18
@@ -1992,7 +2001,7 @@ Transform:
   m_GameObject: {fileID: 1340425075}
   serializedVersion: 2
   m_LocalRotation: {x: 0.018608201, y: 0.0002954341, z: -0.00002027622, w: 0.99982685}
-  m_LocalPosition: {x: -4.0459, y: 3.0690997, z: -10.303073}
+  m_LocalPosition: {x: -4.0574565, y: 3.1505122, z: -10.303073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4124,7 +4133,7 @@ Transform:
   m_GameObject: {fileID: 1904209630}
   serializedVersion: 2
   m_LocalRotation: {x: 0.018608201, y: 0.0002954341, z: -0.00002027622, w: 0.99982685}
-  m_LocalPosition: {x: -4.0459, y: 3.0690997, z: -10.303073}
+  m_LocalPosition: {x: -4.0574565, y: 3.1505122, z: -10.303073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

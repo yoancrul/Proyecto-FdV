@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         {
             RestartLevel();
         }
-        if (Input.GetKeyDown("escape")){
+        if (Input.GetButtonDown("Menu")){
             if (!pausado)
             {
                 PauseGame();
