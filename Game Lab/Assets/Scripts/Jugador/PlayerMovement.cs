@@ -121,6 +121,22 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
+    //Comprueba si el jugador esta cayendo
+    public bool IsFalling()
+    {
+        if(player.velocity.y < 0)
+        {
+            return true;
+        }
+        return false;
+    }
+    //De momento solo sirve para reiniciar la velocidad vertical si el jugador esta cayendo cuando le va a impulsar una bomba
+    public void ResetIfFalling()
+    {
+        if (IsFalling()){
+            player.velocity = new Vector2(player.velocity.x, 0f);
+        }
+    }
     //serie de métodos para la gestion de bombas máximas y bombas disponibles
     public void AumentarBombasMaximas()
     {

@@ -43,6 +43,10 @@ public class Bombs : MonoBehaviour
         {
             // Aplicamos la fuerza de explosión al jugador
             Vector2 direccionImpulso = collision.gameObject.transform.position - transform.position;
+            if (direccionImpulso.y > 0)
+            {
+                playerMovement.ResetIfFalling();
+            }
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.AddForce(direccionImpulso.normalized * fuerzaExplosion, ForceMode2D.Impulse);
         }
