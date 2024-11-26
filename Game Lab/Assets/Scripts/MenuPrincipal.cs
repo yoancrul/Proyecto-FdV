@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,16 @@ public class MenuPrincipal : MonoBehaviour
 {
     public GameObject menuPrincipal;
     public GameObject levelSelect;
+    public GameObject controlMenu;
+    public static bool controlMando = false;
+    public GameObject controlesTeclado;
+    public GameObject controlesMando;
+
     private void Start()
     {
+        controlMando = GameManager.controlMando;
         levelSelect.SetActive(false);
+        controlMenu.SetActive(false);
     }
     public void PlayGame()
     {
@@ -28,9 +36,23 @@ public class MenuPrincipal : MonoBehaviour
     {
         menuPrincipal.SetActive(true);
         levelSelect.SetActive(false);
+        controlMenu.SetActive(false);
     }
     public void EnterLevel(int level)
     {
         SceneManager.LoadScene("Nivel " +  level);
+    }
+    public void Controls()
+    {
+        menuPrincipal.SetActive(false);
+        controlMenu.SetActive(true);
+        controlesTeclado.SetActive(!controlMando);
+        controlesMando.SetActive(controlMando);
+    }
+    public void CambiarControles()
+    {
+        controlMando = !controlMando;
+        controlesTeclado.SetActive(!controlMando);
+        controlesMando.SetActive(controlMando);
     }
 }

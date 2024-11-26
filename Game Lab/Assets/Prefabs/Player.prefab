@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 2005757276895703666}
   - component: {fileID: 8293177257893383889}
   - component: {fileID: 5798528314470202584}
-  - component: {fileID: 9012340466745604434}
   - component: {fileID: 2865761921549627348}
   m_Layer: 6
   m_Name: Player
@@ -222,19 +221,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9012340466745604434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6566848079499059054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3790315d1543d6847bf2c48b7150308a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
 --- !u!114 &2865761921549627348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +238,4 @@ MonoBehaviour:
   playerMovement: {fileID: 8293177257893383889}
   mainCamera: {fileID: 0}
   velocidadLanzamiento: 3
+  cursorPrefab: {fileID: 0}

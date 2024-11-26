@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.Examples;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -20,7 +21,7 @@ public class ManejoBombas : MonoBehaviour
 
     public float velocidadLanzamiento = 3f;
 
-    private string[] mandos;
+    // Variables utilizadas para generar el cursor de apuntado de las bombas de precisión
     Vector3 posCursor;
     public GameObject cursorPrefab;
     GameObject cursor;
@@ -28,7 +29,6 @@ public class ManejoBombas : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GameObject player = GameObject.FindGameObjectWithTag("Player");
         player = GetComponent<Rigidbody2D>();
         cursor = Instantiate(cursorPrefab, player.transform.position, Quaternion.identity);
         cursor.SetActive(false);
@@ -39,61 +39,41 @@ public class ManejoBombas : MonoBehaviour
     {
         if (!GameManager.pausado)
         {
-            /*mandos = Input.GetJoystickNames();
-            if(mandos[0].Equals("")){*/
-
-            // Para Teclado y Ratón
-                //posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                /*Vector3 posCursor = Input.mousePosition - mainCamera.WorldToScreenPoint(player.transform.position);
-                posCursor.z = 0;*/
-            //} else {
-
-            // Para Mando
+            String disparadorPreciso;
+            String arriba;
+            String abajo;
+            String izquierda;
+            String derecha;
+            
+            if(GameManager.controlMando){
+                // Para Mando
                 float dirBombX = Input.GetAxisRaw("Mouse X");
                 float dirBombY = Input.GetAxisRaw("Mouse Y");
                 posCursor = new Vector3(dirBombX, dirBombY, 0);
-        //    }
-
+                disparadorPreciso = "Fire1";
+                arriba = "Arriba";
+                abajo = "Abajo";
+                izquierda = "Izquierda";
+                derecha = "Derecha";
+            } else {
+                // Para Teclado y Ratón
+                posCursor = Input.mousePosition - mainCamera.WorldToScreenPoint(player.transform.position);
+                posCursor.z = 0;
+                disparadorPreciso = "Fire1TR";
+                arriba = "ArribaTR";
+                abajo = "AbajoTR";
+                izquierda = "IzquierdaTR";
+                derecha = "DerechaTR";
+            }
             GenerateCursor(posCursor);
 
-            /*mandos = Input.GetJoystickNames();
-            if(mandos[0].Equals("")){
-                Manejo de la bomba en modo de lanzamiento*/
-            //if (Input.GetButtonDown("Fire1"))
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (bomba == null && playerMovement.bombasDisponibles > 0)
-                {
-                    playerMovement.QuitarBombaDisponible();
-                    bomba = Instantiate(bombPrefab, player.transform.position, Quaternion.identity);
-                    /*Vector3 posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                    posCursor.z = 0;*/
-                    Vector2 direccionLanzamiento = (posCursor - player.transform.position).normalized;
-                    Vector2 lanzamiento = direccionLanzamiento * fuerzaDeLanzamiento + player.velocity;
-                    rigidforce = bomba.GetComponent<Rigidbody2D>();
-                    if (rigidforce != null)
-                    {
-                        rigidforce.AddForce(lanzamiento, ForceMode2D.Impulse);
-                    }
-                }
-                else
-                {
-                    if (bomba != null)
-                        bomba.GetComponent<Bombs>().DetonarBomba();
-                        bomba = null; // Después de detonar, la referencia se elimina
-                }
-            }
-            //} else {
             // Manejo de la bomba con mando
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown(disparadorPreciso))
             {
                 if (bomba == null && playerMovement.bombasDisponibles > 0)
                 {
                     playerMovement.QuitarBombaDisponible();
-                    /*float dirBombX = Input.GetAxisRaw("Mouse X");
-                    float dirBombY = Input.GetAxisRaw("Mouse Y");*/
                     bomba = Instantiate(bombPrefab, player.transform.position, Quaternion.identity);
-                    //Vector3 posCursor = new Vector3(dirBombX, dirBombY, 0);
 
                     rigidforce = bomba.GetComponent<Rigidbody2D>();
                     if (rigidforce != null)
@@ -108,10 +88,9 @@ public class ManejoBombas : MonoBehaviour
                         bomba = null; // Después de detonar, la referencia se elimina
                 }
             }
-            //}
 
             // Manejo de la bomba hacia la derecha
-            if (Input.GetButtonDown("Derecha"))
+            if (Input.GetButtonDown(derecha))
             {
                 if (bomba == null && playerMovement.bombasDisponibles > 0) // Si no hay bomba lanzada en esa dirección, lanzamos una
                 {
@@ -132,7 +111,7 @@ public class ManejoBombas : MonoBehaviour
             }
 
             // Manejo de la bomba hacia la izquierda
-            if (Input.GetButtonDown("Izquierda"))
+            if (Input.GetButtonDown(izquierda))
             {
                 if (bomba == null && playerMovement.bombasDisponibles > 0)
                 {
@@ -153,7 +132,7 @@ public class ManejoBombas : MonoBehaviour
             }
 
             // Manejo de la bomba hacia abajo
-            if (Input.GetButtonDown("Abajo"))
+            if (Input.GetButtonDown(abajo))
             {
                 if (bomba == null && playerMovement.bombasDisponibles > 0)
                 {
@@ -174,7 +153,7 @@ public class ManejoBombas : MonoBehaviour
             }
 
             // Manejo de la bomba hacia arriba
-            if (Input.GetButtonDown("Arriba"))
+            if (Input.GetButtonDown(arriba))
             {
                 if (bomba == null && playerMovement.bombasDisponibles > 0)
                 {

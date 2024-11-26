@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -50,8 +51,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador
-
+        float dirX;
+        String botonSalto;
+        if(GameManager.controlMando){
+            dirX = Input.GetAxisRaw("Horizontal"); // dirección horizontal del jugador (mando)
+            botonSalto = "Jump";
+        } else {
+            dirX = Input.GetAxisRaw("HorizontalTR"); // dirección horizontal del jugador (teclado y raton)
+            botonSalto = "JumpTR";
+        }
+        
         // Velocidad deseada en ambos ejes
         Vector2 desiredVelocity = new Vector2(dirX * velocidadX, player.velocity.y);
         Vector2 velocity = player.velocity; // Velocidad actual del jugador
@@ -107,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         player.velocity = velocity;
 
         // Comprobar si está en el suelo para saltar
-        if (IsGrounded() && Input.GetButtonDown("Jump"))
+        if (IsGrounded() && Input.GetButtonDown(botonSalto))
         {
             player.velocity = new Vector2(player.velocity.x, fuerzaSalto);
         }
