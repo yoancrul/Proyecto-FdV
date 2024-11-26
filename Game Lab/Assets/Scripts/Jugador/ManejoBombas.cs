@@ -44,15 +44,15 @@ public class ManejoBombas : MonoBehaviour
 
             // Para Teclado y Ratón
                 //posCursor = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                Vector3 posCursor = Input.mousePosition - mainCamera.WorldToScreenPoint(player.transform.position);
-                posCursor.z = 0;
-            /*} else {
+                /*Vector3 posCursor = Input.mousePosition - mainCamera.WorldToScreenPoint(player.transform.position);
+                posCursor.z = 0;*/
+            //} else {
 
             // Para Mando
                 float dirBombX = Input.GetAxisRaw("Mouse X");
                 float dirBombY = Input.GetAxisRaw("Mouse Y");
                 posCursor = new Vector3(dirBombX, dirBombY, 0);
-            }*/
+        //    }
 
             GenerateCursor(posCursor);
 
