@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
         EventManager.OnTimerStart();
         pauseMenu.SetActive(false);
         controlMenu.SetActive(false);
-        controlMando = MenuPrincipal.controlMando;
         if (Time.timeScale == 0)
             pausado = true;
     }

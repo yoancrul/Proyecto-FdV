@@ -9,13 +9,11 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject menuPrincipal;
     public GameObject levelSelect;
     public GameObject controlMenu;
-    public static bool controlMando = false;
     public GameObject controlesTeclado;
     public GameObject controlesMando;
 
     private void Start()
     {
-        controlMando = GameManager.controlMando;
         levelSelect.SetActive(false);
         controlMenu.SetActive(false);
     }
@@ -46,13 +44,13 @@ public class MenuPrincipal : MonoBehaviour
     {
         menuPrincipal.SetActive(false);
         controlMenu.SetActive(true);
-        controlesTeclado.SetActive(!controlMando);
-        controlesMando.SetActive(controlMando);
+        controlesTeclado.SetActive(!GameManager.controlMando);
+        controlesMando.SetActive(GameManager.controlMando);
     }
     public void CambiarControles()
     {
-        controlMando = !controlMando;
-        controlesTeclado.SetActive(!controlMando);
-        controlesMando.SetActive(controlMando);
+        GameManager.controlMando = !GameManager.controlMando;
+        controlesTeclado.SetActive(!GameManager.controlMando);
+        controlesMando.SetActive(GameManager.controlMando);
     }
 }
