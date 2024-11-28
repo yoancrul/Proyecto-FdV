@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - muro
+  - suelo
+  - Bomba Recogible
+  - Enemigo
+  - bomba
+  - Bloque Activado
   layers:
   - Default
   - TransparentFX
@@ -12,9 +18,9 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
-  - 
-  - 
+  - Bomba
+  - Plataforma
+  - Enemigo
   - 
   - 
   - 
@@ -40,4 +46,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Bloques
+    uniqueID: 245037859
     locked: 0

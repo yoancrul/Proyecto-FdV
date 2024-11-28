@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2370500576045126484}
   - component: {fileID: 8149026457507974675}
   - component: {fileID: 4763932785671268542}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bomba
-  m_TagString: Untagged
+  m_TagString: bomba
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,3 +165,5 @@ MonoBehaviour:
   radioExplosion: 3.2
   duracionExplosion: 0.1
   tiempoHastaExplosion: 3
+  detonado: 0
+  tilemap: {fileID: 0}
