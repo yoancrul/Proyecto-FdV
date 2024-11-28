@@ -430,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 1130839138}
     - target: {fileID: 387550506583829326, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReturnToPauseMenu
+      value: ReturnButton
       objectReference: {fileID: 0}
     - target: {fileID: 3442086789153143973, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
