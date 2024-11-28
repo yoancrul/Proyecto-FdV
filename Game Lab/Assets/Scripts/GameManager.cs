@@ -37,9 +37,7 @@ public class GameManager : MonoBehaviour
             }
             else{
                 if(controles){
-                    controles = false;
-                    pauseMenu.SetActive(true);
-                    controlMenu.SetActive(false);
+                    ReturnToPauseMenu();
                 } else {
                     ResumeGame();
                 }
@@ -90,5 +88,10 @@ public class GameManager : MonoBehaviour
         controlMando = !controlMando;
         controlesTeclado.SetActive(!controlMando);
         controlesMando.SetActive(controlMando);
+    }
+    public void ReturnToPauseMenu(){
+        controles = false;
+        pauseMenu.SetActive(true);
+        controlMenu.SetActive(false);
     }
 }
