@@ -18,13 +18,16 @@ public class GameManager : MonoBehaviour
     public GameObject botonInicio;
     public GameObject botonControl;
     private PlayerInput playerInput;
+    public GameObject botonesMando;
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         playerInput = player.GetComponent<PlayerInput>();
         EventManager.OnTimerStart();
         pauseMenu.SetActive(false);
         controlMenu.SetActive(false);
+        botonesMando.SetActive(false);
         if (Time.timeScale == 0)
             pausado = true;
     }
@@ -32,17 +35,20 @@ public class GameManager : MonoBehaviour
     public void PauseGame(InputAction.CallbackContext callbackContext)
     {
         if(callbackContext.performed){
+            Time.timeScale = 0;
+            pausado = true;
             EventSystem.current.SetSelectedGameObject(botonInicio);
             playerInput.neverAutoSwitchControlSchemes = false;
             controlMenu.SetActive(false);
             pauseMenu.SetActive(true);
-            Time.timeScale = 0;
-            pausado = true;
+            botonesMando.SetActive(true);
         }
     }
 
     public void ResumeGame()
     {
+        Time.timeScale = 1;
+        pausado = false;
         playerInput.neverAutoSwitchControlSchemes = true;
         if(controlMando){
             playerInput.SwitchCurrentControlScheme("Gamepad",Gamepad.all[0]);
@@ -51,8 +57,7 @@ public class GameManager : MonoBehaviour
             playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
         }
         pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        pausado = false;
+        botonesMando.SetActive(false);
     }
     public void QuitGame()
     {
@@ -60,16 +65,12 @@ public class GameManager : MonoBehaviour
     }
     public void GoToMainMenu()
     {
-        if (pausado)
-            ResumeGame();
+        pausado = false;
         SceneManager.LoadScene("Menu Principal");
     }
     public void RestartLevel()
     {
-        if (pausado)
-        {
-            ResumeGame();
-        }
+        pausado = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void Controls()

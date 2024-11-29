@@ -609,6 +609,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1420749215657406411, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
   m_PrefabInstance: {fileID: 278502409}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &278502414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5911997696904914364, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 278502409}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &279022607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7102217394380071367, guid: 4acdf2626f457bf4188205d50b401036, type: 3}
@@ -1754,6 +1759,7 @@ MonoBehaviour:
   player: {fileID: 1177613847}
   botonInicio: {fileID: 278502413}
   botonControl: {fileID: 278502412}
+  botonesMando: {fileID: 278502414}
 --- !u!1001 &1144766816
 PrefabInstance:
   m_ObjectHideFlags: 0

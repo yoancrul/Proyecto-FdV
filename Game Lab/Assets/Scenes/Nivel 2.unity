@@ -1193,6 +1193,7 @@ MonoBehaviour:
   player: {fileID: 1200190844}
   botonInicio: {fileID: 1831954087}
   botonControl: {fileID: 1831954086}
+  botonesMando: {fileID: 1843937964}
 --- !u!1 &1152059285
 GameObject:
   m_ObjectHideFlags: 0
@@ -10786,6 +10787,11 @@ GameObject:
 --- !u!1 &1831954087 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1420749215657406411, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 1574588525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1843937964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5911997696904914364, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
   m_PrefabInstance: {fileID: 1574588525}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1853016401

@@ -16,15 +16,19 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject botonInicio;
     public GameObject botonNiveles;
     public GameObject botonControl;
+    public PlayerInput playerInput;
 
     private void Start()
     {
+        playerInput = GetComponentInParent<PlayerInput>();
         levelSelect.SetActive(false);
         controlMenu.SetActive(false);
     }
     public void PlayGame()
     {
         SceneManager.LoadScene("Nivel 0");
+        GameManager.controlMando = playerInput.currentControlScheme.Equals("Gamepad");
+        Debug.Log(playerInput.currentControlScheme);
     }
     public void QuitGame()
     {
