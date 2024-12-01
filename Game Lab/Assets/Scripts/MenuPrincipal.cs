@@ -28,7 +28,6 @@ public class MenuPrincipal : MonoBehaviour
     {
         SceneManager.LoadScene("Nivel 0");
         GameManager.controlMando = playerInput.currentControlScheme.Equals("Gamepad");
-        Debug.Log(playerInput.currentControlScheme);
     }
     public void QuitGame()
     {
@@ -59,6 +58,7 @@ public class MenuPrincipal : MonoBehaviour
     public void EnterLevel(int level)
     {
         SceneManager.LoadScene("Nivel " +  level);
+        GameManager.controlMando = playerInput.currentControlScheme.Equals("Gamepad");
     }
     public void Controls()
     {
