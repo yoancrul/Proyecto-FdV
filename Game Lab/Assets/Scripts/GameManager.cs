@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject controlMenu;
     public static bool controlMando = false;
+    public static bool tutorial = false;
     public GameObject controlesTeclado;
     public GameObject controlesMando;
     public GameObject player;
@@ -34,14 +35,16 @@ public class GameManager : MonoBehaviour
     
     public void PauseGame(InputAction.CallbackContext callbackContext)
     {
-        if(callbackContext.performed){
-            Time.timeScale = 0;
-            pausado = true;
-            EventSystem.current.SetSelectedGameObject(botonInicio);
-            playerInput.neverAutoSwitchControlSchemes = false;
-            controlMenu.SetActive(false);
-            pauseMenu.SetActive(true);
-            botonesMando.SetActive(true);
+        if(!tutorial){
+            if(callbackContext.performed){
+                Time.timeScale = 0;
+                pausado = true;
+                EventSystem.current.SetSelectedGameObject(botonInicio);
+                playerInput.neverAutoSwitchControlSchemes = false;
+                controlMenu.SetActive(false);
+                pauseMenu.SetActive(true);
+                botonesMando.SetActive(true);
+            }
         }
     }
 
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
         controlesMando.SetActive(controlMando);
     }
     public void ReturnControl(InputAction.CallbackContext callbackContext){
-        if(pausado && callbackContext.performed){
+        if(pausado && !tutorial && callbackContext.performed){
             if(!pauseMenu.activeSelf){
                 EventSystem.current.SetSelectedGameObject(botonInicio);
                 pauseMenu.SetActive(true);
