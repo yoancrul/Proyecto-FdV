@@ -5,7 +5,6 @@ using UnityEngine;
 public class BloqueActivado : MonoBehaviour
 {
     public Puerta puertaAsociada;
-    private bool activo;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +20,6 @@ public class BloqueActivado : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("bomba"))
         {
-            activo = true;
             Debug.Log("Activo");
             GetComponent<Renderer>().material.color = new Color(0,204,0);
             puertaAsociada.Abrir();
