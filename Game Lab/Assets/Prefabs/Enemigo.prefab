@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 3956561187885334295}
   - component: {fileID: 1100060833339928376}
   - component: {fileID: 1200815260942981659}
-  - component: {fileID: 3724139361342658150}
   - component: {fileID: 5706696740264924812}
+  - component: {fileID: 3183605896752328882}
   m_Layer: 9
   m_Name: Enemigo
   m_TagString: Enemigo
@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3510272949285846864}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -130.89435, y: -7.4349504, z: 0.32794175}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
@@ -113,12 +113,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.90196085, g: 0.09411766, b: 0.050980397, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 05e71981467a23c4a812e66d994d3b59, type: 3}
+  m_Color: {r: 0.7686275, g: 0.7686275, b: 0.7686275, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.84, y: 3.84}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -151,8 +151,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &3724139361342658150
-CircleCollider2D:
+--- !u!114 &5706696740264924812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510272949285846864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f03ea645bb044a4aafd91be0f7ce855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 6
+  sightStart: {fileID: 3635926474806341033}
+  sightEnd: {fileID: 6065590434833631508}
+  sightGround1: {fileID: 4150841196771766941}
+  sightGround2: {fileID: 5590253215497331995}
+  sightGround3: {fileID: 321518773575197430}
+  sightGround4: {fileID: 4894085302989083710}
+  colliding: 0
+--- !u!70 &3183605896752328882
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -183,29 +203,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &5706696740264924812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3510272949285846864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f03ea645bb044a4aafd91be0f7ce855, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 6
-  sightStart: {fileID: 3635926474806341033}
-  sightEnd: {fileID: 6065590434833631508}
-  sightGround1: {fileID: 4150841196771766941}
-  sightGround2: {fileID: 5590253215497331995}
-  sightGround3: {fileID: 321518773575197430}
-  sightGround4: {fileID: 4894085302989083710}
-  colliding: 0
+  m_Offset: {x: -0.21631686, y: -0.020602068}
+  m_Size: {x: 2.5008533, y: 3.8812044}
+  m_Direction: 0
 --- !u!1 &3902596613880359191
 GameObject:
   m_ObjectHideFlags: 0
