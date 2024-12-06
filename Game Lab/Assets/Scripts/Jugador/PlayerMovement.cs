@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     private float groundCooldown = 0.7f;
     private float siguienteLanzamiento = 0f;
 
+    public Vector2 anticaidasPosition;
+
     /*Todo variables de movimiento horizontal menos fuerzaSalto obviamente*/
     public float aceleracionMax = 5f;
     public float aceleracionMaxAire = 2f;
@@ -129,6 +131,10 @@ public class PlayerMovement : MonoBehaviour
             if (IsGrounded() && bombasDisponibles != bombasMaximas && CheckCooldown())
             {
                 IgualarBombas();
+            }
+            if (IsGrounded())
+            {
+                anticaidasPosition = transform.position;
             }
         }
     }

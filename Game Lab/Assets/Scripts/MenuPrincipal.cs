@@ -74,4 +74,5 @@ public class MenuPrincipal : MonoBehaviour
         controlesTeclado.SetActive(!GameManager.controlMando);
         controlesMando.SetActive(GameManager.controlMando);
     }
+
 }

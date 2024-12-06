@@ -1074,6 +1074,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f564516417e288f4d905ed57a5c07cdb, type: 3}
+--- !u!1 &1030363437 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6565630848543099819, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 1574588525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1049425445 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6054472489945993560, guid: 28f8b1fd4e42dcd479f8feb3b950ef59, type: 3}
@@ -1154,7 +1159,7 @@ GameObject:
   - component: {fileID: 1130839138}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1188,12 +1193,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1574588529}
   controlMenu: {fileID: 1574588528}
+  opciones: {fileID: 1030363437}
   controlesTeclado: {fileID: 1574588527}
   controlesMando: {fileID: 1574588526}
   player: {fileID: 1200190844}
   botonInicio: {fileID: 1831954087}
   botonControl: {fileID: 1831954086}
+  anticaidas: 0
   botonesMando: {fileID: 1843937964}
+  anticaidasToggle: {fileID: 2039909608}
 --- !u!1 &1152059285
 GameObject:
   m_ObjectHideFlags: 0
@@ -23790,6 +23798,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1466a3a695633244d99e019b15d860c3, type: 3}
+--- !u!114 &2039909608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5868410243587540274, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 1574588525}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2047573149
 PrefabInstance:
   m_ObjectHideFlags: 0
