@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject botonInicio;
     public GameObject botonControl;
+    public GameObject botonOpciones;
     public bool anticaidas;
     private PlayerInput playerInput;
     public GameObject botonesMando;
@@ -98,35 +99,26 @@ public class GameManager : MonoBehaviour
         isUpdatingToggle = false; // Finalizar la actualización del Toggle
     }
 
-    public void PauseGame(InputAction.CallbackContext callbackContext)
+    public void PauseOrResumeGame(InputAction.CallbackContext callbackContext)
     {
         if (!tutorial)
         {
             if (callbackContext.performed)
             {
-                Time.timeScale = 0;
-                pausado = true;
-                EventSystem.current.SetSelectedGameObject(botonInicio);
-                playerInput.neverAutoSwitchControlSchemes = false;
-                controlMenu.SetActive(false);
-                pauseMenu.SetActive(true);
-                botonesMando.SetActive(true);
-                opciones.SetActive(false);
+                if(!pausado){
+                    Time.timeScale = 0;
+                    pausado = true;
+                    EventSystem.current.SetSelectedGameObject(botonInicio);
+                    playerInput.neverAutoSwitchControlSchemes = false;
+                    controlMenu.SetActive(false);
+                    pauseMenu.SetActive(true);
+                    botonesMando.SetActive(true);
+                    opciones.SetActive(false);
+                } else {
+                    ResumeGame();
+                }
+                
             }
-        }
-    }
-    public void PauseGame()
-    {
-        if (!tutorial)
-        {
-            Time.timeScale = 0;
-            pausado = true;
-            EventSystem.current.SetSelectedGameObject(botonInicio);
-            playerInput.neverAutoSwitchControlSchemes = false;
-            controlMenu.SetActive(false);
-            pauseMenu.SetActive(true);
-            botonesMando.SetActive(true);
-            opciones.SetActive(false);
         }
     }
 
@@ -145,7 +137,7 @@ public class GameManager : MonoBehaviour
             playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
         }
         pauseMenu.SetActive(false);
-        CerrarOpciones();
+        opciones.SetActive(false);
         botonesMando.SetActive(false);
     }
     public void QuitGame()
@@ -197,13 +189,12 @@ public class GameManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(botonInicio);
         pauseMenu.SetActive(true);
         controlMenu.SetActive(false);
+        opciones.SetActive(false);
     }
     public void AbrirOpciones()
     {
+        EventSystem.current.SetSelectedGameObject(botonOpciones);
+        pauseMenu.SetActive(false);
         opciones.SetActive(true);
-    }
-    public void CerrarOpciones()
-    {
-        opciones.SetActive(false);
     }
 }

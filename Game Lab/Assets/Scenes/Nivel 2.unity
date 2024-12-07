@@ -1090,6 +1090,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0a1d5702dedc74ca680825368edaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1051309068 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7791422435175985053, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 1574588525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1117343506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1199,6 +1204,7 @@ MonoBehaviour:
   player: {fileID: 1200190844}
   botonInicio: {fileID: 1831954087}
   botonControl: {fileID: 1831954086}
+  botonOpciones: {fileID: 1051309068}
   anticaidas: 0
   botonesMando: {fileID: 1843937964}
   anticaidasToggle: {fileID: 2039909608}
@@ -1432,7 +1438,7 @@ PrefabInstance:
       objectReference: {fileID: 1130839138}
     - target: {fileID: 789623082442430523, guid: f21580fe7d60e5048a1e3c7b142cd9dc, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PauseGame
+      value: PauseOrResumeGame
       objectReference: {fileID: 0}
     - target: {fileID: 789623082442430523, guid: f21580fe7d60e5048a1e3c7b142cd9dc, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2039,6 +2045,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ReturnButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3408438626494952517, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1130839138}
+    - target: {fileID: 3408438626494952517, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnButton
+      objectReference: {fileID: 0}
     - target: {fileID: 3442086789153143973, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2046,6 +2060,10 @@ PrefabInstance:
     - target: {fileID: 3442086789153143973, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CambiarControles
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868410243587540274, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6075469709100200497, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -23803,7 +23821,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5868410243587540274, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
   m_PrefabInstance: {fileID: 1574588525}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1051309068}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
