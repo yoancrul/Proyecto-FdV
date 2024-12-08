@@ -164,6 +164,5 @@ MonoBehaviour:
   fuerzaExplosion: 16
   radioExplosion: 3.2
   duracionExplosion: 0.1
-  tiempoHastaExplosion: 3
+  tiempoHastaExplosion: 10
   detonado: 0
-  tilemap: {fileID: 0}

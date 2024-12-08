@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         // Cargar el estado de "anticaidas" de PlayerPrefs
         if (PlayerPrefs.HasKey(ANTICAIDAS_KEY))
         {
-            anticaidas = PlayerPrefs.GetInt(ANTICAIDAS_KEY) == 1; // 1 = true, 0 = false
+            anticaidas = PlayerPrefs.GetInt(ANTICAIDAS_KEY) == 0; // 1 = true, 0 = false
         }
         else
         {

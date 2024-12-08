@@ -36,6 +36,8 @@ public class Caida : MonoBehaviour
             if (gameManager != null && gameManager.anticaidas) // Verificar si el GameManager y anticaidas no son nulos
             {
                 playerMovement.transform.position = playerMovement.anticaidasPosition;
+                Rigidbody2D player = playerMovement.gameObject.GetComponent<Rigidbody2D>();
+                player.velocity = new Vector2(0, 0);
             }
             else
             {
