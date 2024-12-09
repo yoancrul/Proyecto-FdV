@@ -64,12 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        /*if(GameManager.controlMando){
-            playerInput.SwitchCurrentControlScheme("Gamepad",Gamepad.all[0]);
-            
-        } else {
-            playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
-        }*/
         if(!GameManager.pausado){
             input = playerInput.actions["Move"].ReadValue<Vector2>();
         
