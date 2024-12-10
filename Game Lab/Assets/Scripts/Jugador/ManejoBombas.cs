@@ -14,7 +14,8 @@ public class ManejoBombas : MonoBehaviour
 
     private Rigidbody2D player;
     public GameObject bombPrefab;
-    public float fuerzaDeLanzamiento = 13f;  // Fuerza con la que se lanzara la bomba
+    public float fuerzaDeLanzamientoX = 13;  // Fuerza con la que se lanzara la bomba
+    public float fuerzaDeLanzamientoY = 13;  // Fuerza con la que se lanzara la bomba
     public PlayerMovement playerMovement;   //DISCLAIMER: se debe cambiar el nombre de esto
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
@@ -68,12 +69,21 @@ public class ManejoBombas : MonoBehaviour
                 }
                 playerMovement.QuitarBombaDisponible();
                 bomba = Instantiate(bombPrefab, player.transform.position, Quaternion.identity);
-
-                rigidforce = bomba.GetComponent<Rigidbody2D>();
+                posCursor = posCursor.normalized;
+                fuerzaDeLanzamientoX = 13f*posCursor.x;
+                if(player.velocity.y < 0 && posCursor.y < 0){
+                    fuerzaDeLanzamientoY = player.velocity.y + 13f * posCursor.y;
+                } else {
+                    fuerzaDeLanzamientoY = 13f * posCursor.y;
+                }
+                
+                Vector2 direccion = new Vector2(fuerzaDeLanzamientoX, fuerzaDeLanzamientoY);
+                bomba.GetComponent<Rigidbody2D>().velocity = direccion;
+                /*rigidforce = bomba.GetComponent<Rigidbody2D>();
                 if (rigidforce != null)
                 {
                     rigidforce.AddForce(posCursor.normalized * fuerzaDeLanzamiento, ForceMode2D.Impulse);
-                }
+                }*/
             }
             else
             {
@@ -90,6 +100,7 @@ public class ManejoBombas : MonoBehaviour
             if (bomba == null && playerMovement.bombasDisponibles > 0)
             {
                     playerMovement.QuitarBombaDisponible();
+                    if(input.y < 0 && playerMovement.IsGrounded()) input.y = 0;
                     Vector3 posicionBomba = new Vector3(player.position.x+input.x, player.position.y+input.y, 0);
                     bomba = Instantiate(bombPrefab, posicionBomba, Quaternion.identity);
                     Vector2 direccion = new Vector2(player.velocity.x + velocidadLanzamiento*input.x, player.velocity.y + velocidadLanzamiento*input.y);
