@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Trampa : MonoBehaviour
 {
+    PlayerMovement playerMovement;
+    private void Start()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            playerMovement.Muere();
         }
     }
 }

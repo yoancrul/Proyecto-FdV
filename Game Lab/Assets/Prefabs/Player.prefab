@@ -158,6 +158,8 @@ MonoBehaviour:
   velocidadUI: {fileID: 0}
   bombasMaximas: 0
   bombasDisponibles: 0
+  anticaidasPosition: {x: 0, y: 0}
+  respawnPosition: {x: 0, y: 0}
   aceleracionMax: 60
   aceleracionMaxAire: 60
   deceleracionMax: 30
@@ -235,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: 3253940916985967612, guid: cb77de299fd24864e80425638c492b7c, type: 3}
-  fuerzaDeLanzamiento: 13
+  fuerzaDeLanzamiento: 10
   playerMovement: {fileID: 8293177257893383889}
   mainCamera: {fileID: 0}
   velocidadLanzamiento: 3

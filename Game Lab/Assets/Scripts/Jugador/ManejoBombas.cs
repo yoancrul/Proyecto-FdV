@@ -14,8 +14,7 @@ public class ManejoBombas : MonoBehaviour
 
     private Rigidbody2D player;
     public GameObject bombPrefab;
-    public float fuerzaDeLanzamientoX = 13;  // Fuerza con la que se lanzara la bomba
-    public float fuerzaDeLanzamientoY = 13;  // Fuerza con la que se lanzara la bomba
+    public float fuerzaDeLanzamiento = 13;  // Fuerza con la que se lanzara la bomba
     public PlayerMovement playerMovement;   //DISCLAIMER: se debe cambiar el nombre de esto
 
     // Variables utilizadas para el lanzamiento que manipula el jugador
@@ -56,43 +55,53 @@ public class ManejoBombas : MonoBehaviour
 
     }
 
-    public void GeneratePreciseBomb(InputAction.CallbackContext callbackContext){
-        if(!GameManager.pausado && callbackContext.performed){
+    public void GeneratePreciseBomb(InputAction.CallbackContext callbackContext)
+    {
+        if (!GameManager.pausado && callbackContext.performed)
+        {
             if (bomba == null && playerMovement.bombasDisponibles > 0)
             {
-                if(GameManager.controlMando){
+                // Obtener la dirección de lanzamiento según el control
+                if (GameManager.controlMando)
+                {
                     input = playerInput.actions["Look"].ReadValue<Vector2>();
-                    posCursor = new Vector3(input.x,input.y,0);
-                } else {
-                    input = Input.mousePosition - mainCamera.WorldToScreenPoint(player.transform.position);
-                    posCursor = new Vector3(input.x,input.y,0);
+                    posCursor = new Vector3(input.x, input.y, 0);
                 }
+                else
+                {
+                    input = Input.mousePosition - mainCamera.WorldToScreenPoint(player.transform.position);
+                    posCursor = new Vector3(input.x, input.y, 0);
+                }
+
+                // Quitar una bomba disponible y crear la nueva bomba
                 playerMovement.QuitarBombaDisponible();
                 bomba = Instantiate(bombPrefab, player.transform.position, Quaternion.identity);
-                posCursor = posCursor.normalized;
-                fuerzaDeLanzamientoX = 13f*posCursor.x;
-                if(player.velocity.y < 0 && posCursor.y < 0){
-                    fuerzaDeLanzamientoY = player.velocity.y + 13f * posCursor.y;
-                } else {
-                    fuerzaDeLanzamientoY = 13f * posCursor.y;
-                }
-                
-                Vector2 direccion = new Vector2(fuerzaDeLanzamientoX, fuerzaDeLanzamientoY);
-                bomba.GetComponent<Rigidbody2D>().velocity = direccion;
-                /*rigidforce = bomba.GetComponent<Rigidbody2D>();
+
+                rigidforce = bomba.GetComponent<Rigidbody2D>();
                 if (rigidforce != null)
                 {
-                    rigidforce.AddForce(posCursor.normalized * fuerzaDeLanzamiento, ForceMode2D.Impulse);
-                }*/
+                    // Sumar la velocidad del jugador a la dirección de lanzamiento
+                    Vector2 velocidadJugador = player.velocity;
+                    Vector2 direccionLanzamiento = posCursor.normalized * fuerzaDeLanzamiento;
+
+                    // La fuerza final incorpora la velocidad del jugador
+                    Vector2 fuerzaFinal = direccionLanzamiento + velocidadJugador;
+
+                    // Aplicar la fuerza al Rigidbody2D de la bomba
+                    rigidforce.AddForce(fuerzaFinal, ForceMode2D.Impulse);
+                }
             }
             else
             {
                 if (bomba != null)
+                {
                     bomba.GetComponent<Bombs>().DetonarBomba();
                     bomba = null; // Después de detonar, la referencia se elimina
+                }
             }
         }
     }
+
 
     public void GenerateImpulseBomb(InputAction.CallbackContext callbackContext){
         if(!GameManager.pausado && callbackContext.performed){

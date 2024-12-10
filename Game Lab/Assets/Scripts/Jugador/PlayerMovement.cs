@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private float siguienteLanzamiento = 0f;
 
     public Vector2 anticaidasPosition;
+    public Vector2 respawnPosition;
+    private Vector2 initialPos;
 
     /*Todo variables de movimiento horizontal menos fuerzaSalto obviamente*/
     public float aceleracionMax = 5f;
@@ -52,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
         bombasDisponibles = bombasMaximas;
+        respawnPosition = player.transform.position;
+        respawnPosition = initialPos;
         if(GameManager.controlMando){
             playerInput.SwitchCurrentControlScheme("Gamepad",Gamepad.all[0]);
             
@@ -201,7 +205,13 @@ public class PlayerMovement : MonoBehaviour
     //Matar al jugador
     public void Muere()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (respawnPosition == initialPos)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        else
+        {
+            player.transform.position = respawnPosition;
+            player.velocity = new Vector2(0, 0);
+        }
     }
     public void DeviceLost(PlayerInput playerInput){
         GameManager.controlMando = false;
