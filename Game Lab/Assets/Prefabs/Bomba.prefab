@@ -166,3 +166,4 @@ MonoBehaviour:
   duracionExplosion: 0.1
   tiempoHastaExplosion: 10
   detonado: 0
+  explosionIndicatorPrefab: {fileID: 1554417678681317446, guid: f3549055ec4dc734a8fe32a294a2eb79, type: 3}
