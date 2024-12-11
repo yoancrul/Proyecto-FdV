@@ -2848,8 +2848,12 @@ PrefabInstance:
       value: Muro atravesable por bomba Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4421015193913485565, guid: a94025041ff7f84498a929653608784e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0367529
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421015193913485565, guid: a94025041ff7f84498a929653608784e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 100.58304
+      value: 100.5647
       objectReference: {fileID: 0}
     - target: {fileID: 4421015193913485565, guid: a94025041ff7f84498a929653608784e, type: 3}
       propertyPath: m_LocalPosition.y

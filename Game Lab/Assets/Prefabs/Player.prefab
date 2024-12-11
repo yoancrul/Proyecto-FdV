@@ -240,7 +240,7 @@ MonoBehaviour:
   fuerzaDeLanzamiento: 10
   playerMovement: {fileID: 8293177257893383889}
   mainCamera: {fileID: 0}
-  velocidadLanzamiento: 3
+  velocidadLanzamiento: 5
   cursorPrefab: {fileID: 3938640701874743654, guid: b5cda713dc59f464b88280f2e0787d7e, type: 3}
 --- !u!114 &789623082442430523
 MonoBehaviour:
