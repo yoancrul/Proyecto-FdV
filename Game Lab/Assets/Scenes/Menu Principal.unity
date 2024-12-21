@@ -1501,7 +1501,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 193769872}
-    m_SelectOnDown: {fileID: 1519397074}
+    m_SelectOnDown: {fileID: 574837361}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -3511,8 +3511,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -249.9, y: 104.6}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -249.9, y: 116.16766}
+  m_SizeDelta: {x: 200, y: 26.8647}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1147378567
 MonoBehaviour:
@@ -3597,7 +3597,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 19.991293}
+  m_margin: {x: 0, y: 0, z: 0, w: 1.9971361}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
