@@ -17,5 +17,10 @@ public class Trampa : MonoBehaviour
         {
             playerMovement.Muere();
         }
+        if (collision.gameObject.CompareTag("Enemigo"))
+        {
+            GameObject enemigo = collision.gameObject;
+            Destroy(enemigo);
+        }
     }
 }

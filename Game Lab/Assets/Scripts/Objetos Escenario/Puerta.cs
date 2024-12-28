@@ -3,7 +3,7 @@ using UnityEngine;
 public class Puerta : MonoBehaviour
 {
     public float velocidadApertura = 2f; // Velocidad de movimiento de la puerta
-    public float distanciaApertura = 5f; // Distancia máxima de apertura
+    public float distanciaApertura = 5f; // Distancia mï¿½xima de apertura
 
     public enum DireccionApertura
     {
@@ -13,26 +13,26 @@ public class Puerta : MonoBehaviour
         Derecha
     }
 
-    public DireccionApertura direccionApertura = DireccionApertura.Arriba; // Dirección de apertura seleccionable desde el Inspector
+    public DireccionApertura direccionApertura = DireccionApertura.Arriba; // Direcciï¿½n de apertura seleccionable desde el Inspector
 
-    private Vector3 posicionInicial; // Posición original de la puerta
-    private Vector3 direccionMovimiento; // Vector de movimiento basado en la dirección seleccionada
-    private bool abriendo = false; // Indica si la puerta se está abriendo
+    private Vector3 posicionInicial; // Posiciï¿½n original de la puerta
+    private Vector3 direccionMovimiento; // Vector de movimiento basado en la direcciï¿½n seleccionada
+    private bool abriendo = false; // Indica si la puerta se estï¿½ abriendo
 
     void Start()
     {
-        posicionInicial = transform.position; // Guarda la posición inicial
-        direccionMovimiento = ObtenerVectorDireccion(direccionApertura); // Calcula el vector de dirección al iniciar
+        posicionInicial = transform.position; // Guarda la posiciï¿½n inicial
+        direccionMovimiento = ObtenerVectorDireccion(direccionApertura); // Calcula el vector de direcciï¿½n al iniciar
     }
 
     void Update()
     {
-        // Si está abriendo, mueve la puerta en la dirección especificada
+        // Si estï¿½ abriendo, mueve la puerta en la direcciï¿½n especificada
         if (abriendo)
         {
             transform.position += direccionMovimiento * velocidadApertura * Time.deltaTime;
 
-            // Verificar si la puerta ha alcanzado la distancia máxima
+            // Verificar si la puerta ha alcanzado la distancia mï¿½xima
             if (Vector3.Distance(posicionInicial, transform.position) >= distanciaApertura)
             {
                 transform.position = posicionInicial + direccionMovimiento * distanciaApertura;
@@ -41,13 +41,13 @@ public class Puerta : MonoBehaviour
         }
     }
 
-    // Método para iniciar la apertura de la puerta
+    // Mï¿½todo para iniciar la apertura de la puerta
     public void Abrir()
     {
         abriendo = true;
     }
 
-    // Convierte la dirección seleccionada en el Inspector a un vector
+    // Convierte la direcciï¿½n seleccionada en el Inspector a un vector
     private Vector3 ObtenerVectorDireccion(DireccionApertura direccion)
     {
         switch (direccion)
