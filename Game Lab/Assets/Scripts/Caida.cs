@@ -56,10 +56,6 @@ public class Caida : MonoBehaviour
             GameObject enemigo = collision.gameObject;
             Destroy(enemigo);
         }
-        if (collision.gameObject.CompareTag("bomba")){
-            GameObject bomba = collision.gameObject;
-            Destroy(bomba);
-        }
     }
 }
 

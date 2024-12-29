@@ -29,13 +29,6 @@ public class EnemyLogic : MonoBehaviour
 
     void Update()
     {
-        // Capas que vamos a ignorar en el raycast
-        int layer1 = LayerMask.NameToLayer("Ignore Raycast");
-        int layer2 = LayerMask.NameToLayer("CameraBounds");
-
-        int layersToIgnore = (1 << layer1) | (1 << layer2); // Combinamos las capas con or
-        int layerMask = ~layersToIgnore; // Invertimos para incluir el resto de capas
-
         // Verificar si el enemigo está en el suelo
         bool estaEnElSuelo = Physics2D.Linecast(sightGround1.position, sightGround2.position).collider != null;
 
@@ -46,9 +39,9 @@ public class EnemyLogic : MonoBehaviour
         }
 
         // Realizar los Linecast para colisiones
-        RaycastHit2D hit = Physics2D.Linecast(sightStart.position, sightEnd.position, layerMask);
-        RaycastHit2D noGround = Physics2D.Linecast(sightGround1.position, sightGround2.position, layerMask);
-        RaycastHit2D caer = Physics2D.Linecast(sightGround3.position, sightGround4.position, layerMask);
+        RaycastHit2D hit = Physics2D.Linecast(sightStart.position, sightEnd.position);
+        RaycastHit2D noGround = Physics2D.Linecast(sightGround1.position, sightGround2.position);
+        RaycastHit2D caer = Physics2D.Linecast(sightGround3.position, sightGround4.position);
 
         if (caer.collider == null)
         {
