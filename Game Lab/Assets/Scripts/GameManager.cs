@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject controlMenu;
     public GameObject opciones;
     public static bool controlMando = false;
-    public static bool tutorial = false;
+    public static bool tutorial = true;   
     public GameObject controlesTeclado;
     public GameObject controlesMando;
     public GameObject player;
@@ -24,12 +25,18 @@ public class GameManager : MonoBehaviour
     public bool anticaidas;
     private PlayerInput playerInput;
     public GameObject botonesMando;
+    public GameObject finalNivel;
+    public TMP_Text tiempoFinalTexto; // Referencia al texto de tiempo final en la pantalla de fin del nivel
+    public int siguienteNivel;
 
-    public Toggle anticaidasToggle; // El objeto Toggle en el menú de opciones
+    public Toggle tutorialToggle; // Toggle para activar o desactivar tutoriales
+    private const string TUTORIAL_KEY = "Tutorial"; // Clave para guardar el estado del tutorial
 
-    private const string ANTICAIDAS_KEY = "Anticaidas"; // Clave para PlayerPrefs
 
-    private bool isUpdatingToggle = false; // Bandera para evitar recursión infinita
+    public Toggle anticaidasToggle;
+
+    private const string ANTICAIDAS_KEY = "Anticaidas";
+    private bool isUpdatingToggle = false;
 
     void Start()
     {
@@ -40,28 +47,69 @@ public class GameManager : MonoBehaviour
         opciones.SetActive(false);
         controlMenu.SetActive(false);
         botonesMando.SetActive(false);
+        finalNivel.SetActive(false);
         if (Time.timeScale == 0)
             pausado = true;
 
-        // Cargar el estado de "anticaidas" de PlayerPrefs
+        // Inicializar el estado de anticaídas
         if (PlayerPrefs.HasKey(ANTICAIDAS_KEY))
         {
-            anticaidas = PlayerPrefs.GetInt(ANTICAIDAS_KEY) == 1; // 1 = true, 0 = false
+            anticaidas = PlayerPrefs.GetInt(ANTICAIDAS_KEY) == 1;
         }
         else
         {
-            anticaidas = false; // Valor predeterminado
+            anticaidas = false;
             PlayerPrefs.SetInt(ANTICAIDAS_KEY, 0);
             PlayerPrefs.Save();
         }
 
-        // Sincronizar el Toggle con el valor de anticaidas
         if (anticaidasToggle != null)
         {
-            anticaidasToggle.isOn = anticaidas; // Inicializar el estado del Toggle
-            anticaidasToggle.onValueChanged.AddListener(delegate { ToggleAnticaidasFromUI(); }); // Escuchar cambios
+            anticaidasToggle.isOn = anticaidas;
+            anticaidasToggle.onValueChanged.AddListener(delegate { ToggleAnticaidasFromUI(); });
+        }
+
+        // Inicializar el estado del tutorial
+        if (PlayerPrefs.HasKey(TUTORIAL_KEY))
+        {
+            tutorial = PlayerPrefs.GetInt(TUTORIAL_KEY) == 1;
+        }
+        else
+        {
+            tutorial = true; // Por defecto, los tutoriales están activados
+            PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
+            PlayerPrefs.Save();
+        }
+
+        if (tutorialToggle != null)
+        {
+            tutorialToggle.isOn = tutorial;
+            tutorialToggle.onValueChanged.AddListener(delegate { ToggleTutorialFromUI(); });
         }
     }
+    public void ToggleTutorialFromUI()
+    {
+        tutorial = tutorialToggle.isOn; // Actualizar la variable tutorial
+        PlayerPrefs.SetInt(TUTORIAL_KEY, tutorial ? 1 : 0); // Guardar el estado en PlayerPrefs
+        PlayerPrefs.Save();
+
+        // Restablecer el foco en un botón del menú para evitar problemas con el EventSystem
+        EventSystem.current.SetSelectedGameObject(botonInicio);
+    }
+
+    public void ToggleTutorial()
+    {
+        tutorial = !tutorial;
+
+        if (tutorialToggle != null)
+        {
+            tutorialToggle.isOn = tutorial;
+        }
+
+        PlayerPrefs.SetInt(TUTORIAL_KEY, tutorial ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
 
     void OnDestroy()
     {
@@ -101,26 +149,26 @@ public class GameManager : MonoBehaviour
 
     public void PauseOrResumeGame(InputAction.CallbackContext callbackContext)
     {
-        if (!tutorial)
+        if (callbackContext.performed)
         {
-            if (callbackContext.performed)
+            if (!pausado)
             {
-                if(!pausado){
-                    Time.timeScale = 0;
-                    pausado = true;
-                    EventSystem.current.SetSelectedGameObject(botonInicio);
-                    playerInput.neverAutoSwitchControlSchemes = false;
-                    controlMenu.SetActive(false);
-                    pauseMenu.SetActive(true);
-                    botonesMando.SetActive(true);
-                    opciones.SetActive(false);
-                } else {
-                    ResumeGame();
-                }
-                
+                Time.timeScale = 0;
+                pausado = true;
+                EventSystem.current.SetSelectedGameObject(botonInicio);
+                playerInput.neverAutoSwitchControlSchemes = false;
+                controlMenu.SetActive(false);
+                pauseMenu.SetActive(true);
+                botonesMando.SetActive(true);
+                opciones.SetActive(false);
+            }
+            else
+            {
+                ResumeGame();
             }
         }
     }
+
 
     public void ResumeGame()
     {
@@ -197,5 +245,25 @@ public class GameManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(botonOpciones);
         pauseMenu.SetActive(false);
         opciones.SetActive(true);
+    }
+    public void SiguienteNivel()
+    {
+        {
+            SceneManager.LoadScene("Nivel " + siguienteNivel);
+        }
+    }
+    public void FinalNivel(float tiempoFinal)
+    {
+        finalNivel.SetActive(true);
+
+        // Actualizar el texto con el tiempo final
+        TimeSpan timeSpan = TimeSpan.FromSeconds(tiempoFinal);
+        tiempoFinalTexto.text = $"Tiempo Final: {timeSpan:mm\\:ss\\:ff}";
+
+        Time.timeScale = 0;
+    }
+    public bool TutorialIsOn()
+    {
+        return tutorial;
     }
 }

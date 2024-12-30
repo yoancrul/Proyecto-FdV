@@ -7,22 +7,34 @@ public class PuertaNivel : MonoBehaviour
 {
     private Rigidbody2D rb;
     public int nivelCargado;
-    // Start is called before the first frame update
+    private GameManager gameManager;
+    private Timer timer; // Referencia al cronómetro
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gameManager = FindObjectOfType<GameManager>();
+        timer = FindObjectOfType<Timer>(); // Encuentra el cronómetro en la escena
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager no encontrado en la escena.");
+        }
+        if (timer == null)
+        {
+            Debug.LogError("Timer no encontrado en la escena.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Nivel " + nivelCargado);
+            if (timer != null && gameManager != null)
+            {
+                float tiempoFinal = timer.GetTime(); // Obtén el tiempo actual del cronómetro
+                gameManager.FinalNivel(tiempoFinal); // Llama al método FinalNivel con el tiempo
+            }
         }
     }
 }
+

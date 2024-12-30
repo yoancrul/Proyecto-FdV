@@ -18,9 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private Vector2 input;
 
-    /*Variables de gestion de la cantidad de bombas maximas, disponibles 
-     y el cooldown del lanzamiento de bombas para evitar que el jugador lanze demasiadas */
-    public int bombasMaximas = 0; //no es movimiento pero de esta clase deberia ser playerController
+    public int bombasMaximas = 0;
     public int bombasDisponibles = 0;
     private float groundCooldown = 0.7f;
     private float siguienteLanzamiento = 0f;
@@ -29,24 +27,23 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 respawnPosition;
     private Vector2 initialPos;
 
-    /*Todo variables de movimiento horizontal menos fuerzaSalto obviamente*/
     public float aceleracionMax = 5f;
     public float aceleracionMaxAire = 2f;
     public float deceleracionMax = 6f;
     public float deceleracionMaxAire = 3f;
     public float velocidadMaxGiro = 7f;
     public float velocidadMaxGiroAire = 4f;
-    public float velocidadX = 7f; //valor modificable para la velocidad horizontal del jugador
-    public float velocidadMax = 20f; //la velocidad(horizontal) del jugador nunca puede superior a velocidadMax
-    public float fuerzaSalto = 13f; //valor modificable para el salto del jugador
+    public float velocidadX = 7f; // Velocidad horizontal base
+    public float velocidadMaxX = 20f; // Velocidad máxima horizontal
+    public float velocidadMaxY = 15f; // Velocidad máxima vertical al subir
+    public float fuerzaSalto = 13f; // Fuerza de salto
 
     private float aceleracion;
     private float deceleracion;
     private float velocidadGiro;
     private float maxSpeedChange;
-    [SerializeField] private LayerMask jumpableGround; //esto solo es para definir sobre que layers puede saltar el jugador
+    [SerializeField] private LayerMask jumpableGround;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -56,27 +53,28 @@ public class PlayerMovement : MonoBehaviour
         bombasDisponibles = bombasMaximas;
         respawnPosition = player.transform.position;
         respawnPosition = initialPos;
-        if(GameManager.controlMando){
-            playerInput.SwitchCurrentControlScheme("Gamepad",Gamepad.all[0]);
-            
-        } else {
+        if (GameManager.controlMando)
+        {
+            playerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.all[0]);
+        }
+        else
+        {
             playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
         }
     }
 
-    // Update is called once per frame
-
     void Update()
     {
-        if(!GameManager.pausado){
+        if (!GameManager.pausado)
+        {
             input = playerInput.actions["Move"].ReadValue<Vector2>();
-        
+
             // Velocidad deseada en ambos ejes
             Vector2 desiredVelocity = new Vector2(input.x * velocidadX, player.velocity.y);
-            Vector2 velocity = player.velocity; // Velocidad actual del jugador
-            velocidadUI.text = "Velocidad: " + (int)velocity.x;
+            Vector2 velocity = player.velocity;
+            velocidadUI.text = $"Velocidad: {(int)velocity.x}";
 
-            // Establecemos valores de aceleración, desaceleración y velocidad de giro según si está en el suelo o en el aire
+            // Establecer aceleración, desaceleración y giro según el estado
             aceleracion = IsGrounded() ? aceleracionMax : aceleracionMaxAire;
             deceleracion = IsGrounded() ? deceleracionMax : deceleracionMaxAire;
             velocidadGiro = IsGrounded() ? velocidadMaxGiro : velocidadMaxGiroAire;
@@ -84,52 +82,58 @@ public class PlayerMovement : MonoBehaviour
             // Movimiento en el eje X
             if (input.x != 0)
             {
-                if (Mathf.Sign(input.x) != Mathf.Sign(velocity.x)) // Si está girando (cambiando de dirección)
+                if (Mathf.Sign(input.x) != Mathf.Sign(velocity.x)) // Cambiando de dirección
                 {
                     maxSpeedChange = velocidadGiro * Time.deltaTime;
                 }
-                else if (IsGrounded() && Mathf.Abs(velocity.x) > velocidadX) // Si está en el suelo y esta siendo impulsado por una bomba, decelera
+                else if (IsGrounded() && Mathf.Abs(velocity.x) > velocidadX) // Impulsado en el suelo
                 {
                     maxSpeedChange = deceleracion * Time.deltaTime;
-                }else if (IsGrounded()) //Si está moviendose normal en el suelo, acelera
+                }
+                else if (IsGrounded()) // Movimiento normal en el suelo
                 {
                     maxSpeedChange = aceleracion * Time.deltaTime;
                 }
-                else // Aceleración en el aire
+                else // Movimiento en el aire
                 {
-                    // Si el jugador está en el aire y su velocidad supera la máxima en la dirección del input, no desacelera
                     if (Mathf.Abs(velocity.x) > velocidadX && Mathf.Sign(velocity.x) == Mathf.Sign(input.x))
                     {
-                        maxSpeedChange = 0; // No desacelerar si sigue la dirección del movimiento actual
+                        maxSpeedChange = 0; // No desacelera en el aire si sigue la dirección del input
                     }
                     else
                     {
-                        maxSpeedChange = aceleracion * Time.deltaTime; // Aceleración normal si está por debajo de la velocidad máxima
+                        maxSpeedChange = aceleracion * Time.deltaTime; // Aceleración en el aire
                     }
                 }
             }
             else
             {
-                // Deceleración solo si no hay input horizontal
                 maxSpeedChange = IsGrounded() ? deceleracion * Time.deltaTime : 0;
             }
 
-            // Suavizamos la transición de la velocidad actual a la velocidad deseada en X
+            // Aplicar límite de velocidad máxima horizontal
             velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
-            // Limitar la velocidad máxima a velocidadMax cuando no hay input
-            if (Mathf.Abs(velocity.x) > velocidadMax)
+            if (Mathf.Abs(velocity.x) > velocidadMaxX)
             {
-                velocity.x = Mathf.Sign(velocity.x) * velocidadMax;
+                velocity.x = Mathf.Sign(velocity.x) * velocidadMaxX;
             }
 
-            // Actualizamos la velocidad del jugador
+            // Aplicar límite de velocidad máxima vertical solo al subir
+            if (velocity.y > velocidadMaxY) // Solo limita si está subiendo
+            {
+                velocity.y = velocidadMaxY;
+            }
+
+            // Actualizar la velocidad del jugador
             player.velocity = velocity;
 
-            // Comprobar si está en el suelo para saltar
+            // Comprobar si está en el suelo para recargar bombas
             if (IsGrounded() && bombasDisponibles != bombasMaximas && CheckCooldown())
             {
                 IgualarBombas();
             }
+
+            // Actualizar la posición de anticaídas si está en el suelo
             if (IsGrounded())
             {
                 anticaidasPosition = transform.position;
@@ -141,14 +145,18 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
-    public void Jump(InputAction.CallbackContext callbackContext){
+
+    public void Jump(InputAction.CallbackContext callbackContext)
+    {
         if (!GameManager.pausado && IsGrounded() && callbackContext.performed)
         {
             player.velocity = new Vector2(player.velocity.x, fuerzaSalto);
         }
     }
-    //Comprueba si el jugador esta cayendo
-    public bool IsFalling()
+
+
+//Comprueba si el jugador esta cayendo
+public bool IsFalling()
     {
         if(player.velocity.y < 0)
         {

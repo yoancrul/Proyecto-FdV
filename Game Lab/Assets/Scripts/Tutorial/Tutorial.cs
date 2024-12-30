@@ -12,6 +12,7 @@ public class Tutorial : MonoBehaviour
     public GameObject tutorialMando;
     public GameObject mensajeMando;
     public GameObject botonMando;
+    private GameManager gameManager;
     
     public GameObject tutorialTeclado;
     public GameObject mensajeTeclado;
@@ -20,6 +21,7 @@ public class Tutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindAnyObjectByType<GameManager>();
         canvas.SetActive(false);
         tutorialMando.SetActive(false);
         tutorialTeclado.SetActive(false);
@@ -27,7 +29,7 @@ public class Tutorial : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && gameManager.TutorialIsOn())
         {
             GameManager.tutorial = true;
             canvas.SetActive(true);
