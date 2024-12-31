@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
     private Vector2 input;
 
+    private bool enZonaBombasInfinitas = false;
+
     public int bombasMaximas = 0;
     public int bombasDisponibles = 0;
     private float groundCooldown = 0.7f;
@@ -183,21 +185,24 @@ public bool IsFalling()
     public void AumentarBombaDisponible()
     {
         bombasDisponibles++;
-        bombasUI.text = "Bombas: " + bombasDisponibles;
+        if(!enZonaBombasInfinitas)
+            bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas disponibles: " + bombasDisponibles);
     }
 
     public void QuitarBombaDisponible()
     {
         bombasDisponibles--;
-        bombasUI.text = "Bombas: " + bombasDisponibles;
+        if(!enZonaBombasInfinitas)
+            bombasUI.text = "Bombas: " + bombasDisponibles;
         Debug.Log("Bombas disponibles: " + bombasDisponibles);
     }
     
     public void IgualarBombas()
     {
         bombasDisponibles = bombasMaximas;
-        bombasUI.text = "Bombas: " + bombasDisponibles;
+        if (!enZonaBombasInfinitas)
+            bombasUI.text = "Bombas: " + bombasDisponibles;
     }
     //Cooldown para el lanzamiento de bombas cuando el jugador no está en el aire
     public bool CheckCooldown()
@@ -224,5 +229,9 @@ public bool IsFalling()
     public void DeviceLost(PlayerInput playerInput){
         GameManager.controlMando = false;
         playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+    }
+    public void EnZonaBombasInfinitas()
+    {
+        enZonaBombasInfinitas = !enZonaBombasInfinitas;
     }
 }

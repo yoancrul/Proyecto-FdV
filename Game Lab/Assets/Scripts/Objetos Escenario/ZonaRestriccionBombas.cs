@@ -12,15 +12,18 @@ public class ZonaRestriccionBombas : MonoBehaviour
             PlayerMovement playerBombs = collision.GetComponent<PlayerMovement>();
             if (playerBombs != null)
             {
-                // Guardar el número de bombas máximo actual
+                // Guardar las bombas máximas y disponibles previas
                 bombasMaximasPrevias = playerBombs.bombasMaximas;
                 bombasDisponiblesPrevias = playerBombs.bombasDisponibles;
 
-                // Establecer el número máximo de bombas a 0
+                // Establecer bombas máximas y disponibles a 0
                 playerBombs.bombasMaximas = 0;
                 playerBombs.bombasDisponibles = 0;
 
-                Debug.Log("Jugador entró en la zona, bombas máximas ajustadas a 0.");
+                // Actualizar UI
+                playerBombs.bombasUI.text = "Bombas: 0";
+
+                Debug.Log("Jugador entró en la zona de restricción, bombas máximas ajustadas a 0.");
             }
         }
     }
@@ -32,11 +35,14 @@ public class ZonaRestriccionBombas : MonoBehaviour
             PlayerMovement playerBombs = collision.GetComponent<PlayerMovement>();
             if (playerBombs != null)
             {
-                // Restaurar el número de bombas máximo previo
+                // Restaurar las bombas máximas y disponibles previas
                 playerBombs.bombasMaximas = bombasMaximasPrevias;
                 playerBombs.bombasDisponibles = bombasDisponiblesPrevias;
 
-                Debug.Log("Jugador salió de la zona, bombas máximas restauradas.");
+                // Actualizar UI
+                playerBombs.bombasUI.text = $"Bombas: {playerBombs.bombasDisponibles}";
+
+                Debug.Log("Jugador salió de la zona de restricción, bombas máximas restauradas.");
             }
         }
     }
