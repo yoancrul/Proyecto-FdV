@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+        bombasMaximas = 0;
         bombasDisponibles = bombasMaximas;
         respawnPosition = player.transform.position;
         respawnPosition = initialPos;

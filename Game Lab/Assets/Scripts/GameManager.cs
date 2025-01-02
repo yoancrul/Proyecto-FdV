@@ -11,6 +11,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static bool pausado = false;
+    public GameObject UIGeneral;
     public GameObject pauseMenu;
     public GameObject controlMenu;
     public GameObject opciones;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject botonInicio;
     public GameObject botonControl;
     public GameObject botonOpciones;
+    public GameObject botonFin;
     public bool anticaidas;
     private PlayerInput playerInput;
     public GameObject botonesMando;
@@ -31,18 +33,21 @@ public class GameManager : MonoBehaviour
 
     public Toggle tutorialToggle; // Toggle para activar o desactivar tutoriales
     private const string TUTORIAL_KEY = "Tutorial"; // Clave para guardar el estado del tutorial
-
+    private bool isUpdatingToggleTutorial = false;
 
     public Toggle anticaidasToggle;
-
     private const string ANTICAIDAS_KEY = "Anticaidas";
-    private bool isUpdatingToggle = false;
+    private bool isUpdatingToggleAnticaidas = false;
+
+    public static Boolean enOtroMenu = false;
 
     void Start()
     {
         Time.timeScale = 1;
+        enOtroMenu = false;
         playerInput = player.GetComponent<PlayerInput>();
         EventManager.OnTimerStart();
+        UIGeneral.SetActive(true);
         pauseMenu.SetActive(false);
         opciones.SetActive(false);
         controlMenu.SetActive(false);
@@ -92,22 +97,24 @@ public class GameManager : MonoBehaviour
         tutorial = tutorialToggle.isOn; // Actualizar la variable tutorial
         PlayerPrefs.SetInt(TUTORIAL_KEY, tutorial ? 1 : 0); // Guardar el estado en PlayerPrefs
         PlayerPrefs.Save();
-
-        // Restablecer el foco en un botón del menú para evitar problemas con el EventSystem
-        EventSystem.current.SetSelectedGameObject(botonInicio);
     }
 
     public void ToggleTutorial()
     {
+        if (isUpdatingToggleTutorial) return; // Prevenir recursión infinita
+
+        isUpdatingToggleTutorial = true; // Indicar que estamos actualizando el Toggle
         tutorial = !tutorial;
 
         if (tutorialToggle != null)
         {
-            tutorialToggle.isOn = tutorial;
+            tutorialToggle.isOn = tutorial; // Actualizar el Toggle si se cambia desde otro lugar
         }
 
+        // Guardar el nuevo estado
         PlayerPrefs.SetInt(TUTORIAL_KEY, tutorial ? 1 : 0);
         PlayerPrefs.Save();
+        isUpdatingToggleTutorial = false; // Finalizar la actualización del Toggle
     }
 
 
@@ -118,11 +125,15 @@ public class GameManager : MonoBehaviour
         {
             anticaidasToggle.onValueChanged.RemoveListener(delegate { ToggleAnticaidasFromUI(); });
         }
+        if (tutorialToggle != null)
+        {
+            tutorialToggle.onValueChanged.RemoveListener(delegate { ToggleTutorialFromUI(); });
+        }
     }
 
     public void ToggleAnticaidasFromUI()
     {
-        if (isUpdatingToggle) return; // Prevenir recursión infinita
+        if (isUpdatingToggleAnticaidas) return; // Prevenir recursión infinita
 
         anticaidas = anticaidasToggle.isOn; // Actualizar anticaidas con el estado del Toggle
         PlayerPrefs.SetInt(ANTICAIDAS_KEY, anticaidas ? 1 : 0);
@@ -131,9 +142,9 @@ public class GameManager : MonoBehaviour
 
     public void ToggleAnticaidas()
     {
-        if (isUpdatingToggle) return; // Prevenir recursión infinita
+        if (isUpdatingToggleAnticaidas) return; // Prevenir recursión infinita
 
-        isUpdatingToggle = true; // Indicar que estamos actualizando el Toggle
+        isUpdatingToggleAnticaidas = true; // Indicar que estamos actualizando el Toggle
         anticaidas = !anticaidas;
 
         if (anticaidasToggle != null)
@@ -144,27 +155,30 @@ public class GameManager : MonoBehaviour
         // Guardar el nuevo estado
         PlayerPrefs.SetInt(ANTICAIDAS_KEY, anticaidas ? 1 : 0);
         PlayerPrefs.Save();
-        isUpdatingToggle = false; // Finalizar la actualización del Toggle
+        isUpdatingToggleAnticaidas = false; // Finalizar la actualización del Toggle
     }
 
     public void PauseOrResumeGame(InputAction.CallbackContext callbackContext)
     {
         if (callbackContext.performed)
         {
-            if (!pausado)
-            {
-                Time.timeScale = 0;
-                pausado = true;
-                EventSystem.current.SetSelectedGameObject(botonInicio);
-                playerInput.neverAutoSwitchControlSchemes = false;
-                controlMenu.SetActive(false);
-                pauseMenu.SetActive(true);
-                botonesMando.SetActive(true);
-                opciones.SetActive(false);
-            }
-            else
-            {
-                ResumeGame();
+            if(!enOtroMenu){
+                if (!pausado)
+                {
+                    Time.timeScale = 0;
+                    pausado = true;
+                    EventSystem.current.SetSelectedGameObject(botonInicio);
+                    playerInput.neverAutoSwitchControlSchemes = false;
+                    UIGeneral.SetActive(false);
+                    controlMenu.SetActive(false);
+                    pauseMenu.SetActive(true);
+                    botonesMando.SetActive(true);
+                    opciones.SetActive(false);
+                }
+                else
+                {
+                    ResumeGame();
+                }
             }
         }
     }
@@ -184,6 +198,7 @@ public class GameManager : MonoBehaviour
         {
             playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
         }
+        UIGeneral.SetActive(true);
         pauseMenu.SetActive(false);
         controlMenu.SetActive(false);
         opciones.SetActive(false);
@@ -219,7 +234,7 @@ public class GameManager : MonoBehaviour
     }
     public void ReturnControl(InputAction.CallbackContext callbackContext)
     {
-        if (pausado && !tutorial && callbackContext.performed)
+        if (pausado && !enOtroMenu && callbackContext.performed)
         {
             if (!pauseMenu.activeSelf)
             {
@@ -254,7 +269,11 @@ public class GameManager : MonoBehaviour
     }
     public void FinalNivel(float tiempoFinal)
     {
+        enOtroMenu = true;
+        pausado = true;
+        EventSystem.current.SetSelectedGameObject(botonFin);
         finalNivel.SetActive(true);
+        UIGeneral.SetActive(false);
 
         // Actualizar el texto con el tiempo final
         TimeSpan timeSpan = TimeSpan.FromSeconds(tiempoFinal);

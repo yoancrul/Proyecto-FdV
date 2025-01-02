@@ -41,7 +41,7 @@ public class TutorialNv1 : MonoBehaviour
     public void Fin(GameObject mensaje){
         Time.timeScale = 1;
         GameManager.pausado = false;
-        GameManager.tutorial = false;
+        GameManager.enOtroMenu = false;
         mensaje.SetActive(false);
         if(GameManager.controlMando){
             tutorialMando.SetActive(false);

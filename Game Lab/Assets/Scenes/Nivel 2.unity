@@ -3877,6 +3877,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0a1d5702dedc74ca680825368edaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &500099744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6137726455738847441, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 304067575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &500099745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2941801477626370105, guid: 8890425534d10bf49ba36206f4eb8a65, type: 3}
+  m_PrefabInstance: {fileID: 304067575}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &501339875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4421015193913485565, guid: a94025041ff7f84498a929653608784e, type: 3}
@@ -7642,6 +7652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3790315d1543d6847bf2c48b7150308a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIGeneral: {fileID: 500099745}
   pauseMenu: {fileID: 1207711766}
   controlMenu: {fileID: 1297501279}
   opciones: {fileID: 304067579}
@@ -7651,6 +7662,7 @@ MonoBehaviour:
   botonInicio: {fileID: 304067577}
   botonControl: {fileID: 304067576}
   botonOpciones: {fileID: 634333341}
+  botonFin: {fileID: 500099744}
   anticaidas: 0
   botonesMando: {fileID: 304067580}
   finalNivel: {fileID: 1267375608}

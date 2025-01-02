@@ -29,20 +29,22 @@ public class Tutorial : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && gameManager.TutorialIsOn())
+        if (collision.gameObject.CompareTag("Player"))
         {
-            GameManager.tutorial = true;
-            canvas.SetActive(true);
-            Time.timeScale = 0;
-            GameManager.pausado = true;
-            if(GameManager.controlMando){
-                tutorialMando.SetActive(true);
-                mensajeMando.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(botonMando);
-            } else {
-                tutorialTeclado.SetActive(true);
-                mensajeTeclado.SetActive(true);
-                EventSystem.current.SetSelectedGameObject(botonTeclado);
+            if(gameManager.TutorialIsOn()){
+                GameManager.enOtroMenu = true;
+                canvas.SetActive(true);
+                Time.timeScale = 0;
+                GameManager.pausado = true;
+                if(GameManager.controlMando){
+                    tutorialMando.SetActive(true);
+                    mensajeMando.SetActive(true);
+                    EventSystem.current.SetSelectedGameObject(botonMando);
+                } else {
+                    tutorialTeclado.SetActive(true);
+                    mensajeTeclado.SetActive(true);
+                    EventSystem.current.SetSelectedGameObject(botonTeclado);
+                }
             }
             Destroy(gameObject);
         }
