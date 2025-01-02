@@ -21,9 +21,13 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject botonOpciones;
     private PlayerInput playerInput;
     private bool anticaidas;
+    private bool tutorial;
     public Toggle anticaidasToggle; // El objeto Toggle en el menú de opciones
     private const string ANTICAIDAS_KEY = "Anticaidas"; // Clave para PlayerPrefs
-    private bool isUpdatingToggle = false; // Bandera para evitar recursión infinita
+    private bool isUpdatingToggleAnticaidas = false; // Bandera para evitar recursión infinita
+    public Toggle tutorialToggle; // Toggle para activar o desactivar tutoriales
+    private const string TUTORIAL_KEY = "Tutorial"; // Clave para guardar el estado del tutorial
+    private bool isUpdatingToggleTutorial = false;
 
     private void Start()
     {
@@ -49,6 +53,24 @@ public class MenuPrincipal : MonoBehaviour
             anticaidasToggle.isOn = anticaidas; // Inicializar el estado del Toggle
             anticaidasToggle.onValueChanged.AddListener(delegate { ToggleAnticaidasFromUI(); }); // Escuchar cambios
         }
+
+        // Inicializar el estado del tutorial
+        if (PlayerPrefs.HasKey(TUTORIAL_KEY))
+        {
+            tutorial = PlayerPrefs.GetInt(TUTORIAL_KEY) == 1;
+        }
+        else
+        {
+            tutorial = true; // Por defecto, los tutoriales están activados
+            PlayerPrefs.SetInt(TUTORIAL_KEY, 1);
+            PlayerPrefs.Save();
+        }
+
+        if (tutorialToggle != null)
+        {
+            tutorialToggle.isOn = tutorial;
+            tutorialToggle.onValueChanged.AddListener(delegate { ToggleTutorialFromUI(); });
+        }
     }
 
         void OnDestroy()
@@ -62,7 +84,7 @@ public class MenuPrincipal : MonoBehaviour
 
     public void ToggleAnticaidasFromUI()
     {
-        if (isUpdatingToggle) return; // Prevenir recursión infinita
+        if (isUpdatingToggleAnticaidas) return; // Prevenir recursión infinita
 
         anticaidas = anticaidasToggle.isOn; // Actualizar anticaidas con el estado del Toggle
         PlayerPrefs.SetInt(ANTICAIDAS_KEY, anticaidas ? 1 : 0);
@@ -71,9 +93,9 @@ public class MenuPrincipal : MonoBehaviour
 
     public void ToggleAnticaidas()
     {
-        if (isUpdatingToggle) return; // Prevenir recursión infinita
+        if (isUpdatingToggleAnticaidas) return; // Prevenir recursión infinita
 
-        isUpdatingToggle = true; // Indicar que estamos actualizando el Toggle
+        isUpdatingToggleAnticaidas = true; // Indicar que estamos actualizando el Toggle
         anticaidas = !anticaidas;
 
         if (anticaidasToggle != null)
@@ -84,7 +106,32 @@ public class MenuPrincipal : MonoBehaviour
         // Guardar el nuevo estado
         PlayerPrefs.SetInt(ANTICAIDAS_KEY, anticaidas ? 1 : 0);
         PlayerPrefs.Save();
-        isUpdatingToggle = false; // Finalizar la actualización del Toggle
+        isUpdatingToggleAnticaidas = false; // Finalizar la actualización del Toggle
+    }
+
+    public void ToggleTutorialFromUI()
+    {
+        tutorial = tutorialToggle.isOn; // Actualizar la variable tutorial
+        PlayerPrefs.SetInt(TUTORIAL_KEY, tutorial ? 1 : 0); // Guardar el estado en PlayerPrefs
+        PlayerPrefs.Save();
+    }
+
+    public void ToggleTutorial()
+    {
+        if (isUpdatingToggleTutorial) return; // Prevenir recursión infinita
+
+        isUpdatingToggleTutorial = true; // Indicar que estamos actualizando el Toggle
+        tutorial = !tutorial;
+
+        if (tutorialToggle != null)
+        {
+            tutorialToggle.isOn = tutorial; // Actualizar el Toggle si se cambia desde otro lugar
+        }
+
+        // Guardar el nuevo estado
+        PlayerPrefs.SetInt(TUTORIAL_KEY, tutorial ? 1 : 0);
+        PlayerPrefs.Save();
+        isUpdatingToggleTutorial = false; // Finalizar la actualización del Toggle
     }
 
     public void PlayGame()

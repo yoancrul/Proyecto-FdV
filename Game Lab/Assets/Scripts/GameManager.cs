@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     public GameObject controlMenu;
     public GameObject opciones;
     public static bool controlMando = false;
-    public static bool tutorial = true;   
     public GameObject controlesTeclado;
     public GameObject controlesMando;
     public GameObject player;
@@ -25,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject botonOpciones;
     public GameObject botonFin;
     public bool anticaidas;
+    private bool tutorial;
     private PlayerInput playerInput;
     public GameObject botonesMando;
     public GameObject finalNivel;

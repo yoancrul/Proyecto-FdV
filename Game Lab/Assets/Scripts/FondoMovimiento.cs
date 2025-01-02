@@ -25,7 +25,9 @@ public class FondoMovimiento : MonoBehaviour
         //material.mainTextureOffset += offset;
         //Debug.Log("Offset: " + offset);
 
-        offset.x += jugador.velocity.x * 0.01f * velocidadMovimiento;
-        material.mainTextureOffset = offset;
+        if(!GameManager.pausado){
+            offset.x += jugador.velocity.x * 0.01f * velocidadMovimiento;
+            material.mainTextureOffset = offset;
+        }
     }
 }
