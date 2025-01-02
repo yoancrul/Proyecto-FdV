@@ -211,11 +211,13 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()
     {
         pausado = false;
+        enOtroMenu = false;
         SceneManager.LoadScene("Menu Principal");
     }
     public void RestartLevel()
     {
         pausado = false;
+        enOtroMenu = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void Controls()
@@ -264,6 +266,8 @@ public class GameManager : MonoBehaviour
     public void SiguienteNivel()
     {
         {
+            pausado = false;
+            enOtroMenu = false;
             SceneManager.LoadScene("Nivel " + siguienteNivel);
         }
     }
