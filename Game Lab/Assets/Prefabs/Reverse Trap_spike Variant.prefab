@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4447369139968583076, guid: f564516417e288f4d905ed57a5c07cdb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4464779505757132165, guid: f564516417e288f4d905ed57a5c07cdb, type: 3}
       propertyPath: m_Name
       value: Reverse Trap_spike Variant
