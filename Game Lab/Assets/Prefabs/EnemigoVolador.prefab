@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5230317081210142804}
   - component: {fileID: 4751409291805188897}
   - component: {fileID: 1382625486650948553}
+  - component: {fileID: -8932090485832528585}
   m_Layer: 0
   m_Name: EnemigoVolador
   m_TagString: Enemigo
@@ -109,12 +110,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.90196085, g: 0.08235294, b: 0.04705883, a: 1}
+  m_Sprite: {fileID: 21300000, guid: f436bdca318c5b74780e4fcee3dadb31, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -194,9 +195,30 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.01887544, y: 0.11325519}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.7831373
+--- !u!95 &-8932090485832528585
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430063714533228864}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc341074e1ecc3f4fa88d08ca20c6598, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5137486289832297639
 GameObject:
   m_ObjectHideFlags: 0
