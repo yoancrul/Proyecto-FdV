@@ -15,7 +15,6 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject opcionesMenu;
     public GameObject controlesTeclado;
     public GameObject controlesMando;
-    public GameObject botonesMando;
     public GameObject botonInicio;
     public GameObject botonNiveles;
     public GameObject botonControl;
@@ -33,7 +32,6 @@ public class MenuPrincipal : MonoBehaviour
     private void Start()
     {
         playerInput = GetComponentInParent<PlayerInput>();
-        botonesMando.SetActive(GameManager.controlMando);
         levelSelect.SetActive(false);
         controlMenu.SetActive(false);
         opcionesMenu.SetActive(false);
