@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5798528314470202584}
   - component: {fileID: 2865761921549627348}
   - component: {fileID: 789623082442430523}
+  - component: {fileID: 5713273712743505987}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -128,18 +129,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.6404381, y: 0.0000019073486}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 20.48, y: 20.48}
+    oldSize: {x: 40.96, y: 40.96}
     newSize: {x: 20.48, y: 20.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 14, y: 14}
+  m_Size: {x: 17.280876, y: 41.490536}
   m_EdgeRadius: 0
 --- !u!114 &8293177257893383889
 MonoBehaviour:
@@ -168,7 +169,7 @@ MonoBehaviour:
   velocidadMaxGiroAire: 30
   velocidadX: 10
   velocidadMaxX: 35
-  velocidadMaxY: 40
+  velocidadMaxY: 25
   fuerzaSalto: 15
   jumpableGround:
     serializedVersion: 2
@@ -214,7 +215,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 52a5a57a93257ca4fbe61ad36361588d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8c9725e671c23e4391406a54700664c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -324,8 +325,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: PauseGame
-        m_Mode: 1
+        m_MethodName: PauseOrResumeGame
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -425,3 +426,24 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!95 &5713273712743505987
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566848079499059054}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0f9c34c8cc92234b9679deee31e6865, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -28,12 +28,15 @@ public class ManejoBombas : MonoBehaviour
     Vector3 posCursor;
     public GameObject cursorPrefab;
     GameObject cursor;
+    private Animator animator; // Referencia al Animator del personaje
+
 
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         player = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>(); // Obtén el Animator del objeto actual
         cursor = Instantiate(cursorPrefab, player.transform.position, Quaternion.identity);
         cursor.SetActive(false);
     }
@@ -61,6 +64,7 @@ public class ManejoBombas : MonoBehaviour
         {
             if (bomba == null && playerMovement.bombasDisponibles > 0)
             {
+                animator.SetBool("tieneBomba", true); // Actualiza el Animator
                 // Obtener la dirección de lanzamiento según el control
                 if (GameManager.controlMando)
                 {

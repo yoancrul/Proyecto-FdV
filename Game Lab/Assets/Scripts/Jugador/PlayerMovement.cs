@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 anticaidasPosition;
     public Vector2 respawnPosition;
     private Vector2 initialPos;
+    private Animator animator;
 
     public float aceleracionMax = 5f;
     public float aceleracionMaxAire = 2f;
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>(); 
         bombasMaximas = 0;
         bombasDisponibles = bombasMaximas;
         respawnPosition = player.transform.position;
@@ -72,6 +74,11 @@ public class PlayerMovement : MonoBehaviour
         {
             input = playerInput.actions["Move"].ReadValue<Vector2>();
 
+            bool isRunning = Mathf.Abs(input.x) > 0.1f && IsGrounded();
+            bool isJumping = !IsGrounded();
+            animator.SetBool("isRunning", isRunning);
+            animator.SetBool("isJumping", isJumping);
+
             // Velocidad deseada en ambos ejes
             Vector2 desiredVelocity = new Vector2(input.x * velocidadX, player.velocity.y);
             Vector2 velocity = player.velocity;
@@ -81,6 +88,15 @@ public class PlayerMovement : MonoBehaviour
             aceleracion = IsGrounded() ? aceleracionMax : aceleracionMaxAire;
             deceleracion = IsGrounded() ? deceleracionMax : deceleracionMaxAire;
             velocidadGiro = IsGrounded() ? velocidadMaxGiro : velocidadMaxGiroAire;
+
+            if (input.x < 0)  {
+            animator.SetBool("isFacingLeft", true);
+            sp.flipX = true; // Voltea el sprite horizontalmente
+            }
+            else if (input.x > 0) {
+            animator.SetBool("isFacingLeft", false);
+            sp.flipX = false; // Vuelve el sprite a su posición original
+            }
 
             // Movimiento en el eje X
             if (input.x != 0)
@@ -154,6 +170,8 @@ public class PlayerMovement : MonoBehaviour
         if (!GameManager.pausado && IsGrounded() && callbackContext.performed)
         {
             player.velocity = new Vector2(player.velocity.x, fuerzaSalto);
+            animator.SetBool("isJumping", true);
+
         }
     }
 
