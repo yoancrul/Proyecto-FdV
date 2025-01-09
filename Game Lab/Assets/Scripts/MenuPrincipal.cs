@@ -14,7 +14,7 @@ public class MenuPrincipal : MonoBehaviour
     public GameObject controlMenu;
     public GameObject opcionesMenu;
     public GameObject controlesTeclado;
-    public GameObject controlesMando;
+    public GameObject botonesMando;
     public GameObject botonInicio;
     public GameObject botonNiveles;
     public GameObject botonControl;
@@ -32,6 +32,7 @@ public class MenuPrincipal : MonoBehaviour
     private void Start()
     {
         playerInput = GetComponentInParent<PlayerInput>();
+        botonesMando.SetActive(GameManager.controlMando);
         levelSelect.SetActive(false);
         controlMenu.SetActive(false);
         opcionesMenu.SetActive(false);
@@ -178,13 +179,12 @@ public class MenuPrincipal : MonoBehaviour
         menuPrincipal.SetActive(false);
         controlMenu.SetActive(true);
         controlesTeclado.SetActive(!GameManager.controlMando);
-        controlesMando.SetActive(GameManager.controlMando);
     }
     public void CambiarControles()
     {
         GameManager.controlMando = !GameManager.controlMando;
         controlesTeclado.SetActive(!GameManager.controlMando);
-        controlesMando.SetActive(GameManager.controlMando);
+        botonesMando.SetActive(GameManager.controlMando);
     }
     public void Opciones()
     {

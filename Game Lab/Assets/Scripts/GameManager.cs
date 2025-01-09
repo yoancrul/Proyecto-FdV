@@ -191,8 +191,12 @@ public class GameManager : MonoBehaviour
         playerInput.neverAutoSwitchControlSchemes = true;
         if (controlMando)
         {
-            playerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.all[0]);
-
+            if(Gamepad.all.Count > 0){
+                playerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.all[0]);
+            } else {
+                controlMando = !controlMando;
+                playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+            }
         }
         else
         {
@@ -218,6 +222,20 @@ public class GameManager : MonoBehaviour
     {
         pausado = false;
         enOtroMenu = false;
+        playerInput.neverAutoSwitchControlSchemes = true;
+        if (controlMando)
+        {
+            if(Gamepad.all.Count > 0){
+                playerInput.SwitchCurrentControlScheme("Gamepad", Gamepad.all[0]);
+            } else {
+                controlMando = !controlMando;
+                playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+            }
+        }
+        else
+        {
+            playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void Controls()
