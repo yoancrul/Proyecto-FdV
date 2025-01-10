@@ -3377,7 +3377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 09857f2db6d22be42ad485e50470147f, type: 2}
+  - {fileID: 2100000, guid: 6609ce2c9db3e2440a0a1e1af9cfb937, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3637,7 +3637,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e11ca8e9c5edd9345b9de95ac4059c0f, type: 2}
+  - {fileID: 2100000, guid: 3f7dee3bcac04ef489dec71fac185199, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4603,6 +4603,7 @@ GameObject:
   - component: {fileID: 439045417}
   - component: {fileID: 439045416}
   - component: {fileID: 439045415}
+  - component: {fileID: 439045418}
   m_Layer: 0
   m_Name: Quad_2
   m_TagString: Untagged
@@ -4667,7 +4668,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 67e6ff7376157bf4487d3074e771e169, type: 2}
+  - {fileID: 2100000, guid: c315ebe435283084481e932a36ecd665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4697,6 +4698,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439045413}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &439045418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439045413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352e9e9b56f32ba458afb7a3a0d877e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidadMovimiento: 0.001
 --- !u!4 &460672216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6513967587719185805, guid: f564516417e288f4d905ed57a5c07cdb, type: 3}
@@ -13359,7 +13373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352e9e9b56f32ba458afb7a3a0d877e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadMovimiento: 0.008
+  velocidadMovimiento: 0.006
 --- !u!64 &1463123877
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13402,7 +13416,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a49d3bb90ac2ac7408df55d5b9cdfc34, type: 2}
+  - {fileID: 2100000, guid: 0c19453de7e26c940bf2c3502b6af133, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14151,7 +14165,7 @@ Transform:
   m_GameObject: {fileID: 1560559784}
   serializedVersion: 2
   m_LocalRotation: {x: -0.018608201, y: -0.0002954341, z: 0.00002027622, w: 0.99982685}
-  m_LocalPosition: {x: 2.0698962, y: -2.7264607, z: 10.412961}
+  m_LocalPosition: {x: 2.6, y: -7, z: 10.412961}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14533,6 +14547,7 @@ GameObject:
   - component: {fileID: 1624401314}
   - component: {fileID: 1624401313}
   - component: {fileID: 1624401312}
+  - component: {fileID: 1624401315}
   m_Layer: 0
   m_Name: Quad_7
   m_TagString: Untagged
@@ -14549,7 +14564,7 @@ Transform:
   m_GameObject: {fileID: 1624401310}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9, y: -12.7, z: 0}
+  m_LocalPosition: {x: -2.9, y: 9.1, z: 0}
   m_LocalScale: {x: 75.84733, y: 42.66412, z: 1.1202}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14597,7 +14612,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61cbaa57c097154d8480dc332aa4e4c, type: 2}
+  - {fileID: 2100000, guid: 634c103e3f767ff4bae4c1b410cd34db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14627,6 +14642,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624401310}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1624401315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624401310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352e9e9b56f32ba458afb7a3a0d877e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidadMovimiento: 0.007
 --- !u!1 &1628830281
 GameObject:
   m_ObjectHideFlags: 0
@@ -17280,7 +17308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f835c369fa6accf4c8b85fabcdd50e23, type: 2}
+  - {fileID: 2100000, guid: 102964e254f300f4bbff6235323afdef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17920,7 +17948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352e9e9b56f32ba458afb7a3a0d877e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadMovimiento: 0.006
+  velocidadMovimiento: 0.005
 --- !u!64 &1785500538
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17963,7 +17991,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bd6d2714b27a38d47b737d02570df4d1, type: 2}
+  - {fileID: 2100000, guid: 391d097836056fd4cbda2865d48ecaf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
