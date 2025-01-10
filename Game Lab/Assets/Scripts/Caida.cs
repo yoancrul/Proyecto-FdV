@@ -5,14 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class Caida : MonoBehaviour
 {
-    public AudioClip deathSound; // Arrastra el sonido aquí desde el inspector
+    public AudioClip deathSound;
     private AudioSource audioSource;
     GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        
         // Buscar el GameObject con el tag "GameManager" y obtener el componente GameManager
         GameObject gameManagerObject = GameObject.FindGameObjectWithTag("GameManager");
         if (gameManagerObject != null)

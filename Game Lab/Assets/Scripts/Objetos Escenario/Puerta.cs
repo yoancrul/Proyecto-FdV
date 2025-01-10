@@ -19,10 +19,19 @@ public class Puerta : MonoBehaviour
     private Vector3 direccionMovimiento; // Vector de movimiento basado en la direcci�n seleccionada
     private bool abriendo = false; // Indica si la puerta se est� abriendo
 
+    public AudioClip doorOpen;
+    private AudioSource audioSource;
+
     void Start()
     {
         posicionInicial = transform.position; // Guarda la posici�n inicial
         direccionMovimiento = ObtenerVectorDireccion(direccionApertura); // Calcula el vector de direcci�n al iniciar
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void Update()
@@ -45,6 +54,10 @@ public class Puerta : MonoBehaviour
     public void Abrir()
     {
         abriendo = true;
+        if (doorOpen != null)
+        {
+            audioSource.PlayOneShot(doorOpen);
+        }
     }
 
     // Convierte la direcci�n seleccionada en el Inspector a un vector
