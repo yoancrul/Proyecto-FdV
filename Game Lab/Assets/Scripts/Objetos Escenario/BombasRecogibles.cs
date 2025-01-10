@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class BombasRecogibles : MonoBehaviour
 {
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = FindObjectOfType<PlayerMovement>().GetComponent<Animator>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+             if (animator != null)
+            {
+                animator.SetBool("tieneBomba", true); 
+            }
             PlayerMovement playerController = collision.GetComponent<PlayerMovement>();
             if (playerController != null)
             {
