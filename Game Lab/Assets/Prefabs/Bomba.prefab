@@ -161,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f48a338f50479724ba75105ec89ce672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionSound: {fileID: 8300000, guid: 032a01ae9cdcfa448b5f6f45573f4a05, type: 3}
-  explosion: {fileID: 8300000, guid: ea593d86535ca1540856e21677e826b2, type: 3}
+  destructionSound: {fileID: 8300000, guid: 91f5ff6ce178c0045bb5901b72002508, type: 3}
+  explosion: {fileID: 8300000, guid: 839f461c4e1c7b64186750ebf1b9b433, type: 3}
   fuerzaExplosion: 16
   radioExplosion: 3.2
   duracionExplosion: 0.1

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1372158186717215294, guid: cd50517bf30e0aa4db206ec0ef6eb491, type: 3}
       propertyPath: m_Name
-      value: Puerta deslizante (4) Variant
+      value: Puerta deslizante horizontal
       objectReference: {fileID: 0}
     - target: {fileID: 1748701764549297112, guid: cd50517bf30e0aa4db206ec0ef6eb491, type: 3}
       propertyPath: m_LocalScale.x
@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3615194348865868805, guid: cd50517bf30e0aa4db206ec0ef6eb491, type: 3}
+      propertyPath: doorOpen
+      value: 
+      objectReference: {fileID: 8300000, guid: ce3563181e8d90f40a60bc471c09fe77, type: 3}
     - target: {fileID: 3615194348865868805, guid: cd50517bf30e0aa4db206ec0ef6eb491, type: 3}
       propertyPath: direccionApertura
       value: 2

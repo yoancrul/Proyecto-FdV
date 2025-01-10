@@ -48,6 +48,10 @@ public class PlayerMovement : MonoBehaviour
     private float maxSpeedChange;
     [SerializeField] private LayerMask jumpableGround;
 
+    public AudioClip jumpSound;
+    public AudioClip death;
+    private AudioSource audioSource;
+
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -67,6 +71,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             playerInput.SwitchCurrentControlScheme(Keyboard.current, Mouse.current);
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
 
@@ -173,6 +183,10 @@ public class PlayerMovement : MonoBehaviour
         if (!GameManager.pausado && IsGrounded() && callbackContext.performed)
         {
             player.velocity = new Vector2(player.velocity.x, fuerzaSalto);
+            if (jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
         }
     }
 
@@ -238,6 +252,11 @@ public bool IsFalling()
     //Matar al jugador
     public void Muere()
     {
+        if (death != null)
+        {
+            audioSource.PlayOneShot(death);
+        }
+
         if (respawnPosition == initialPos)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else
