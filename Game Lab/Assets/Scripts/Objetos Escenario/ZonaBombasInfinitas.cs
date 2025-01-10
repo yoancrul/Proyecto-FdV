@@ -5,6 +5,7 @@ public class ZonaBombasInfinitas : MonoBehaviour
     private int bombasMaximasPrevias;
     private int bombasDisponiblesPrevias;
     private bool enZonaBombasInfinitas = false;
+    private static int zonasBombasInfinitasActivas = 0;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,13 +15,14 @@ public class ZonaBombasInfinitas : MonoBehaviour
             playerBombs.EnZonaBombasInfinitas();
             if (playerBombs != null)
             {
-                if (!enZonaBombasInfinitas)
+                if (!enZonaBombasInfinitas && zonasBombasInfinitasActivas == 0)
                 {
                     // Guardar las bombas máximas y disponibles previas
                     bombasMaximasPrevias = playerBombs.bombasMaximas;
                 }
 
                 // Establecer bombas infinitas
+                zonasBombasInfinitasActivas++;
                 enZonaBombasInfinitas = true;
                 playerBombs.bombasMaximas = int.MaxValue; // Representa infinito
                 playerBombs.bombasDisponibles = int.MaxValue;
@@ -37,7 +39,8 @@ public class ZonaBombasInfinitas : MonoBehaviour
         {
             PlayerMovement playerBombs = collision.GetComponent<PlayerMovement>();
             playerBombs.EnZonaBombasInfinitas();
-            if (playerBombs != null && enZonaBombasInfinitas)
+            zonasBombasInfinitasActivas--;
+            if (playerBombs != null && enZonaBombasInfinitas && zonasBombasInfinitasActivas==0)
             {
                 // Restaurar bombas máximas y disponibles previas
                 playerBombs.bombasMaximas = bombasMaximasPrevias;
