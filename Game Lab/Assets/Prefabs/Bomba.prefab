@@ -164,7 +164,7 @@ MonoBehaviour:
   destructionSound: {fileID: 8300000, guid: 91f5ff6ce178c0045bb5901b72002508, type: 3}
   explosion: {fileID: 8300000, guid: 839f461c4e1c7b64186750ebf1b9b433, type: 3}
   fuerzaExplosion: 16
-  radioExplosion: 3.2
+  radioExplosion: 3
   duracionExplosion: 0.1
   tiempoHastaExplosion: 10
   detonado: 0
