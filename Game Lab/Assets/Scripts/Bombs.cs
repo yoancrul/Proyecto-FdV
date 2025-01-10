@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class Bombs : MonoBehaviour
 {
+    public AudioClip destructionSound;
+    public AudioClip explosion; // Sonido para la destrucción del muro
+    private AudioSource audioSource;
     public float fuerzaExplosion = 5f;
     public float radioExplosion = 3f;
     public float duracionExplosion = 0.1f;
@@ -20,6 +23,12 @@ public class Bombs : MonoBehaviour
 
     void Start()
     {
+        // Añadir o buscar el componente AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
         // Ignorar colisiones con el jugador
         Collider2D colliderPlayer, colliderBomb;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -65,6 +74,9 @@ public class Bombs : MonoBehaviour
         CircleCollider2D colliderBomba = gameObject.AddComponent<CircleCollider2D>();
         colliderBomba.isTrigger = true;
         colliderBomba.radius = radioExplosion;
+        
+
+        
 
         DestruirMuros();
 
@@ -104,6 +116,9 @@ public class Bombs : MonoBehaviour
 
                         if (distancia <= radioExplosion && tilemap.HasTile(pos))
                         {
+                            if (destructionSound != null){
+                                audioSource.PlayOneShot(destructionSound);
+                            }
                             QuitarMuro(tilemap, pos);
                         }
                     }
@@ -141,12 +156,23 @@ public class Bombs : MonoBehaviour
     private IEnumerator DestruirDespuesDeExplosion()
     {
         yield return new WaitForSeconds(duracionExplosion);
-
-        // Destruir el indicador visual
+        //quito collider de la explosion y bomba
+        Destroy(GetComponent<CircleCollider2D>());
+        
+        if (explosion != null){
+            audioSource.PlayOneShot(explosion);
+        }
+        //quito la textura de la bomba
         if (explosionIndicator != null)
         {
             Destroy(explosionIndicator);
         }
+        GetComponent<SpriteRenderer>().sprite = null;
+         yield return new WaitForSeconds(2f);
+
+
+        // Destruir el indicador visual
+        
 
         Destroy(gameObject);
     }
