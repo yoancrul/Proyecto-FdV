@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Caida : MonoBehaviour
 {
+    public AudioClip deathSound; // Arrastra el sonido aquí desde el inspector
+    private AudioSource audioSource;
     GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        audioSource = GetComponent<AudioSource>();
         // Buscar el GameObject con el tag "GameManager" y obtener el componente GameManager
         GameObject gameManagerObject = GameObject.FindGameObjectWithTag("GameManager");
         if (gameManagerObject != null)
@@ -54,6 +57,11 @@ public class Caida : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemigo"))
         {
             GameObject enemigo = collision.gameObject;
+            if (audioSource != null && deathSound != null)
+            {
+                audioSource.PlayOneShot(deathSound);
+            }
+             
             Destroy(enemigo);
         }
         if (collision.gameObject.CompareTag("bomba")){
