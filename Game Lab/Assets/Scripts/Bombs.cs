@@ -18,7 +18,7 @@ public class Bombs : MonoBehaviour
 
     private GameObject explosionIndicator; // Instancia del indicador visual
     private PlayerMovement playerMovement; // Usado para encontrar bombasDisponibles en el script del jugador
-
+    private CircleCollider2D colliderBomba = null;
     private float contador = 0f;
 
     void Start()
@@ -71,7 +71,7 @@ public class Bombs : MonoBehaviour
         MostrarRadioDeExplosion();
 
         // Añadir el collider de la explosión
-        CircleCollider2D colliderBomba = gameObject.AddComponent<CircleCollider2D>();
+        colliderBomba = gameObject.AddComponent<CircleCollider2D>();
         colliderBomba.isTrigger = true;
         colliderBomba.radius = radioExplosion;
         
@@ -158,7 +158,10 @@ public class Bombs : MonoBehaviour
         yield return new WaitForSeconds(duracionExplosion);
         //quito collider de la explosion y bomba
         Destroy(GetComponent<CircleCollider2D>());
-        
+        if (colliderBomba != null)
+        {
+            Destroy(colliderBomba);
+        }
         if (explosion != null){
             audioSource.PlayOneShot(explosion);
         }
