@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sp;
 
     public TMP_Text bombasUI;
-    public TMP_Text velocidadUI;
+    
 
     private PlayerInput playerInput;
     private Vector2 input;
@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
             // Velocidad deseada en ambos ejes
             Vector2 desiredVelocity = new Vector2(input.x * velocidadX, player.velocity.y);
             Vector2 velocity = player.velocity;
-            velocidadUI.text = $"Velocidad: {(int)velocity.x}";
+           
 
             // Establecer aceleración, desaceleración y giro según el estado
             aceleracion = IsGrounded() ? aceleracionMax : aceleracionMaxAire;
