@@ -51,6 +51,11 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip jumpSound;
     public AudioClip death;
     private AudioSource audioSource;
+    // Sonido de pasos
+    public AudioClip landingSound; // Sonido al caer
+    //boleano ejecutar sonido de aterrizaje
+    private bool landingSoundPlayed = false;
+     
 
     void Start()
     {
@@ -114,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
             // Movimiento en el eje X
             if (input.x != 0)
             {
+               
                 if (Mathf.Sign(input.x) != Mathf.Sign(velocity.x)) // Cambiando de dirección
                 {
                     maxSpeedChange = velocidadGiro * Time.deltaTime;
@@ -164,17 +170,30 @@ public class PlayerMovement : MonoBehaviour
             {
                 IgualarBombas();
             }
-
+            if (!IsGrounded())
+            {
+                landingSoundPlayed = true;
+            }
             // Actualizar la posición de anticaídas si está en el suelo
             if (IsGrounded())
             {
+                //ejecuto el sonido de aterrizaje
+                if (landingSound != null && landingSoundPlayed)
+                {
+                    audioSource.PlayOneShot(landingSound);
+                    landingSoundPlayed = false;
+                }
+                
                 anticaidasPosition = transform.position;
             }
+            
         }
     }
 
+
     public bool IsGrounded()
     {
+        
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 
